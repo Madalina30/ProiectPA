@@ -15,10 +15,14 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         constraintLayout = findViewById(R.id.act1);
+        //TODO: sa nu fie la buton, sa fie dupa cateva secunde tranzitia spre Login
         constraintLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(MainActivity.this, Login.class));
+                overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                //TODO: overridingTransition(fade.in, fade.out) - search for it
+
             }
         });
     }

@@ -28,17 +28,18 @@ public class Login extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Log.d("aaaa", useremail.getText().toString() + " " + password.getText().toString());
+                // TODO: verify data before continue from DB
+                Intent intent = new Intent(Login.this, MainMenu.class);
+                startActivity(intent);
+                overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
             }
         });
 
         signup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                try {
-                    startActivity(new Intent(Login.this, Signup.class));
-                } catch (Exception e) {
-                    Log.d("AAAX", e.toString());
-                }
+                startActivity(new Intent(Login.this, Signup.class));
+                overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
 
             }
         });
