@@ -31,16 +31,10 @@ public class Signup extends AppCompatActivity {
             public void onClick(View v) {
                 Log.d("aaaa", username.getText().toString() + " " + email.getText().toString()
                         + " " + password.getText().toString() + " " + confirmPass.getText().toString());
-                if (password.getText().equals(confirmPass.getText())) {
-                    Log.d("aaaa", "parolele nu coincid");
-                    // TODO: put data in db before continue
-                    Intent intent = new Intent(Signup.this, MainMenu.class);
-                    startActivity(intent);
-                    overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
-
-                } else {
-                    Log.d("aaaa", "parolele trb sa coincida");
-                }
+                // TODO: put data in db before continue
+                Intent intent = new Intent(Signup.this, MainMenu.class);
+                startActivity(intent);
+                overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
             }
         });
 

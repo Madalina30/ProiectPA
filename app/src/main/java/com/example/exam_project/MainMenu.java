@@ -59,6 +59,7 @@ public class MainMenu extends AppCompatActivity {
             public void onClick(View v) {
                 // go to settings activity
                 Toast.makeText(MainMenu.this, "settings", Toast.LENGTH_SHORT).show();
+                // TODO: logout in settings pe langa alte chestii
             }
         });
 
