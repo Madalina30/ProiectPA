@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class Login extends AppCompatActivity {
     private EditText useremail, password;
@@ -23,11 +24,27 @@ public class Login extends AppCompatActivity {
         password = findViewById(R.id.password);
         loginBtn = findViewById(R.id.loginBtn);
         signup = findViewById(R.id.goToSignup);
+        // db: id, username, email, password, punctaj, levelGrile, levelProbleme
+        // statistici: id, id_user, data, %
 
+        // un user da un input - cod!!!! si sa compilam si sa comparam rezultatele sa vedem daca codul e corect
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("aaaa", useremail.getText().toString() + " " + password.getText().toString());
+                DatabaseHelper databaseHelper = new DatabaseHelper(Login.this);
+
+                String user = useremail.getText().toString();
+                String pass = password.getText().toString();
+                Log.d("aaaa", user + " " + pass);
+
+                User user_ex = new User(-1,user,pass,user);
+                if(databaseHelper.searchUser(user_ex)){
+                    Toast.makeText(Login.this,"User found!",Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    Toast.makeText(Login.this,"Failed to connect, user not found!",Toast.LENGTH_SHORT).show();
+                }
+
                 // TODO: verify data before continue from DB
                 Intent intent = new Intent(Login.this, MainMenu.class);
                 startActivity(intent);

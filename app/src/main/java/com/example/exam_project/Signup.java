@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class Signup extends AppCompatActivity {
     private EditText username, email, password, confirmPass;
@@ -29,9 +30,21 @@ public class Signup extends AppCompatActivity {
         signupBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("aaaa", username.getText().toString() + " " + email.getText().toString()
-                        + " " + password.getText().toString() + " " + confirmPass.getText().toString());
-                // TODO: put data in db before continue
+
+                DatabaseHelper databaseHelper = new DatabaseHelper(Signup.this);
+
+                String user = username.getText().toString();
+                String email_user = email.getText().toString();
+                String pass = password.getText().toString();
+                String confPass = confirmPass.getText().toString();
+
+                User new_user = new User(-1,user,pass,email_user);
+
+                Log.d("aaaa", user + " " + email_user + " " + pass + " " + confPass);
+                boolean success = databaseHelper.addUser(new_user);
+
+//                Toast.makeText(Signup.this,"Succes= "+ success,Toast.LENGTH_SHORT).show();
+
                 Intent intent = new Intent(Signup.this, MainMenu.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
