@@ -60,16 +60,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         System.out.println("Am cautat cursor!");
         if (cursor.moveToFirst()) {
             do {
-                good = true;
+                String passCheck = cursor.getString(2);
+                if (passCheck.equals(user.getPassword()))
+                    good = true;
             } while (cursor.moveToNext());
-        } else {
-//            good = false;
         }
-        System.out.println("Gata cursorul");
-
 
         cursor.close();
-//        db.close();
+
         return good;
     }
 
