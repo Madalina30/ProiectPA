@@ -37,18 +37,19 @@ public class Login extends AppCompatActivity {
                 String pass = password.getText().toString();
                 Log.d("aaaa", user + " " + pass);
 
-                User user_ex = new User(-1,user,pass,user);
-                if(databaseHelper.searchUser(user_ex)){
-                    Toast.makeText(Login.this,"User found!",Toast.LENGTH_SHORT).show();
-                }
-                else{
-                    Toast.makeText(Login.this,"Failed to connect, user not found!",Toast.LENGTH_SHORT).show();
+                User user_ex = new User(-1, user, pass, user);
+
+                if (databaseHelper.searchUser(user_ex) == -1) {
+                    Toast.makeText(Login.this, "Username / Email doesn't exist! Use Sign Up!", Toast.LENGTH_SHORT).show();
+                } else if (databaseHelper.searchUser(user_ex) == 1) {
+                    Toast.makeText(Login.this, "Wrong password!", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(Login.this, "Succes!", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(Login.this, MainMenu.class);
+                    startActivity(intent);
+                    overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
                 }
 
-                // TODO: verify data before continue from DB
-                Intent intent = new Intent(Login.this, MainMenu.class);
-                startActivity(intent);
-                overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
             }
         });
 

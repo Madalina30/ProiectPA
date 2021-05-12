@@ -51,18 +51,19 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return insert != -1;
     }
 
-    public boolean searchUser(User user) {
-        boolean good = false;
+    public int searchUser(User user) {
+        int good = -1;
         SQLiteDatabase db = this.getReadableDatabase();
         String sqlquerry = "SELECT * FROM " + USERS + " WHERE " + USERNAME + " = '" + user.getUsername() + "' OR " + EMAIL + " = '" + user.getEmail() + "';";
 
         Cursor cursor = db.rawQuery(sqlquerry, null);
-        System.out.println("Am cautat cursor!");
+
         if (cursor.moveToFirst()) {
             do {
+                good = 0;
                 String passCheck = cursor.getString(2);
-                if (passCheck.equals(user.getPassword()))
-                    good = true;
+                if (!passCheck.equals(user.getPassword()))
+                    good = 1;
             } while (cursor.moveToNext());
         }
 

@@ -38,16 +38,20 @@ public class Signup extends AppCompatActivity {
                 String pass = password.getText().toString();
                 String confPass = confirmPass.getText().toString();
 
-                User new_user = new User(-1,user,pass,email_user);
+                if (!pass.equals(confPass)) {
+                    Toast.makeText(Signup.this, "Passwords don't match!", Toast.LENGTH_SHORT).show();
+                } else {
+                    User new_user = new User(-1, user, pass, email_user);
 
-                Log.d("aaaa", user + " " + email_user + " " + pass + " " + confPass);
-                boolean success = databaseHelper.addUser(new_user);
+                    Log.d("aaaa", user + " " + email_user + " " + pass + " " + confPass);
+                    boolean success = databaseHelper.addUser(new_user);
 
-//                Toast.makeText(Signup.this,"Succes= "+ success,Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Signup.this, "Success!" + success, Toast.LENGTH_SHORT).show();
 
-                Intent intent = new Intent(Signup.this, MainMenu.class);
-                startActivity(intent);
-                overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                    Intent intent = new Intent(Signup.this, MainMenu.class);
+                    startActivity(intent);
+                    overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                }
             }
         });
 
