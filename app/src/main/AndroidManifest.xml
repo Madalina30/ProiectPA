@@ -9,7 +9,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Examproject">
-        <activity android:name=".GrileMain"></activity>
+        <activity android:name=".UpdateAccount"></activity>
+        <activity android:name=".Settings" />
+        <activity android:name=".TestRandom" />
+        <activity android:name=".Probleme" />
+        <activity android:name=".GrileMain" />
         <activity android:name=".Status" />
         <activity android:name=".MainMenu" />
         <activity android:name=".Signup" />

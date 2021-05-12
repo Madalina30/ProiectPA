@@ -5,25 +5,23 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 
 public class MainActivity extends AppCompatActivity {
-    private ConstraintLayout constraintLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        constraintLayout = findViewById(R.id.act1);
-        //TODO: sa nu fie la buton, sa fie dupa cateva secunde tranzitia spre Login
-        constraintLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, Login.class));
-                overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
-                //TODO: overridingTransition(fade.in, fade.out) - search for it
-
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            public void run() {
+                // TODO: Your application init goes here.
+                Intent mInHome = new Intent(MainActivity.this, MainMenu.class);
+                MainActivity.this.startActivity(mInHome);
+                MainActivity.this.finish();
             }
-        });
+        }, 2000);
     }
 }

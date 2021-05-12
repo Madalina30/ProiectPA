@@ -81,6 +81,7 @@ public class GrileMain extends AppCompatActivity {
                 nextGrila.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        // o sa te duca la urmatoarea grila, nu la urm activity
                         setContentView(R.layout.activity_grile_main);
                         // todo: nu spui daca e corect sau nu decat la final
                         //  in caz ca a ajuns la ultima intrebare, nextLevel se schimba in "Submit" si te duce la MainMenu, dar inainte

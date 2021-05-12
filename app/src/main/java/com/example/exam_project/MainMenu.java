@@ -58,8 +58,9 @@ public class MainMenu extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // go to settings activity
-                Toast.makeText(MainMenu.this, "settings", Toast.LENGTH_SHORT).show();
-                // TODO: logout in settings pe langa alte chestii
+                Intent intent = new Intent(MainMenu.this, Settings.class);
+                startActivity(intent);
+                overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
             }
         });
 
@@ -77,7 +78,9 @@ public class MainMenu extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // go to probleme activity
-                Toast.makeText(MainMenu.this, "probleme", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(MainMenu.this, Probleme.class);
+                startActivity(intent);
+                overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
 
             }
         });
@@ -86,8 +89,9 @@ public class MainMenu extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // go to randomTest activity
-                Toast.makeText(MainMenu.this, "randomTest", Toast.LENGTH_SHORT).show();
-
+                Intent intent = new Intent(MainMenu.this, TestRandom.class);
+                startActivity(intent);
+                overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
             }
         });
 
