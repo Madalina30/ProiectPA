@@ -37,18 +37,23 @@ public class Login extends AppCompatActivity {
                 String pass = password.getText().toString();
                 Log.d("aaaa", user + " " + pass);
 
-                User user_ex = new User(-1, user, pass, user);
-
-                if (databaseHelper.searchUser(user_ex) == -1) {
-                    Toast.makeText(Login.this, "Username / Email doesn't exist! Use Sign Up!", Toast.LENGTH_SHORT).show();
-                } else if (databaseHelper.searchUser(user_ex) == 1) {
-                    Toast.makeText(Login.this, "Wrong password!", Toast.LENGTH_SHORT).show();
+                if (user.equals("") || pass.equals("")) {
+                    Toast.makeText(Login.this, "Username or password field empty!", Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(Login.this, "Succes!", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(Login.this, MainMenu.class);
-                    startActivity(intent);
-                    overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                    User user_ex = new User(-1, user, pass, user);
+
+                    if (databaseHelper.searchUser(user_ex) == -1) {
+                        Toast.makeText(Login.this, "Username / Email doesn't exist! Use Sign Up!", Toast.LENGTH_SHORT).show();
+                    } else if (databaseHelper.searchUser(user_ex) == 1) {
+                        Toast.makeText(Login.this, "Wrong password!", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(Login.this, "Succes!", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(Login.this, MainMenu.class);
+                        startActivity(intent);
+                        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                    }
                 }
+
 
             }
         });

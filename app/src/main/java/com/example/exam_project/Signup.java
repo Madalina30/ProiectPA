@@ -38,20 +38,28 @@ public class Signup extends AppCompatActivity {
                 String pass = password.getText().toString();
                 String confPass = confirmPass.getText().toString();
 
-                if (!pass.equals(confPass)) {
-                    Toast.makeText(Signup.this, "Passwords don't match!", Toast.LENGTH_SHORT).show();
-                } else {
-                    User new_user = new User(-1, user, pass, email_user);
-
-                    Log.d("aaaa", user + " " + email_user + " " + pass + " " + confPass);
-                    boolean success = databaseHelper.addUser(new_user);
-
-                    Toast.makeText(Signup.this, "Success!" + success, Toast.LENGTH_SHORT).show();
-
-                    Intent intent = new Intent(Signup.this, MainMenu.class);
-                    startActivity(intent);
-                    overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                if(user.equals("") || email_user.equals("") || pass.equals("") || confPass.equals(""))
+                {
+                    Toast.makeText(Signup.this, "Empty fields!", Toast.LENGTH_SHORT).show();
                 }
+                else
+                {
+                    if (!pass.equals(confPass)) {
+                        Toast.makeText(Signup.this, "Passwords don't match!", Toast.LENGTH_SHORT).show();
+                    } else {
+                        User new_user = new User(-1, user, pass, email_user);
+
+                        Log.d("aaaa", user + " " + email_user + " " + pass + " " + confPass);
+                        boolean success = databaseHelper.addUser(new_user);
+
+                        Toast.makeText(Signup.this, "Success!" + success, Toast.LENGTH_SHORT).show();
+
+                        Intent intent = new Intent(Signup.this, MainMenu.class);
+                        startActivity(intent);
+                        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                    }
+                }
+
             }
         });
 
