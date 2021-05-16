@@ -72,5 +72,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return good;
     }
 
+    public void deleteUser(User user){
+        SQLiteDatabase db = this.getWritableDatabase();
+        String sql = "DELETE FROM " + USERS + " WHERE " + USERNAME + " = '" + user.getUsername() + "';";
+        db.execSQL(sql);
+
+    }
+
 
 }
