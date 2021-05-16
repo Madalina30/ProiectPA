@@ -67,14 +67,11 @@ public class Settings extends AppCompatActivity {
                 new AlertDialog.Builder(Settings.this)
                         .setTitle("Delete entry")
                         .setMessage("Are you sure you want to delete your account?")
-
-                        // Specifying a listener allows you to take an action before dismissing the dialog.
-                        // The dialog is automatically dismissed when a dialog button is clicked.
                         .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
 //                                databaseHelper.deleteUser(dummy);
                                 Toast.makeText(Settings.this, "Too bad...", Toast.LENGTH_SHORT).show();
-                                Intent intent = new Intent(Settings.this, Signup.class);
+                                Intent intent = new Intent(Settings.this, Login.class);
                                 startActivity(intent);
                                 overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
                             }
