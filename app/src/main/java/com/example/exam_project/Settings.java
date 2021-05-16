@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 public class Settings extends AppCompatActivity {
     private ImageView backToMainMenu;
@@ -71,7 +72,8 @@ public class Settings extends AppCompatActivity {
                         // The dialog is automatically dismissed when a dialog button is clicked.
                         .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
-                                databaseHelper.deleteUser(dummy);
+//                                databaseHelper.deleteUser(dummy);
+                                Toast.makeText(Settings.this, "Too bad...", Toast.LENGTH_SHORT).show();
                                 Intent intent = new Intent(Settings.this, Signup.class);
                                 startActivity(intent);
                                 overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
