@@ -2,6 +2,8 @@ package com.example.exam_project;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -45,6 +47,7 @@ public class Settings extends AppCompatActivity {
         updateAccountBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 // te va duce la un activity asemanator cu signup, doar ca iti updatezi datele
                 Intent intent = new Intent(Settings.this, UpdateAccount.class);
                 startActivity(intent);
@@ -56,10 +59,31 @@ public class Settings extends AppCompatActivity {
         deteleAccountBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                DatabaseHelper databaseHelper = new DatabaseHelper(Settings.this);
+
+                User dummy = new User();
+
+                new AlertDialog.Builder(Settings.this)
+                        .setTitle("Delete entry")
+                        .setMessage("Are you sure you want to delete your account?")
+
+                        // Specifying a listener allows you to take an action before dismissing the dialog.
+                        // The dialog is automatically dismissed when a dialog button is clicked.
+                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                databaseHelper.deleteUser(dummy);
+                                Intent intent = new Intent(Settings.this, Signup.class);
+                                startActivity(intent);
+                                overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                            }
+                        })
+
+                        // A null listener allows the button to dismiss the dialog and take no further action.
+                        .setNegativeButton(android.R.string.no, null)
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .show();
                 // first an alert because it is a dangerous thing to do
-                Intent intent = new Intent(Settings.this, Signup.class);
-                startActivity(intent);
-                overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+
             }
         });
 
