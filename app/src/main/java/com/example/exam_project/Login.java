@@ -3,6 +3,7 @@ package com.example.exam_project;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -24,8 +25,8 @@ public class Login extends AppCompatActivity {
         password = findViewById(R.id.password);
         loginBtn = findViewById(R.id.loginBtn);
         signup = findViewById(R.id.goToSignup);
-        // db: id, username, email, password, punctaj, levelGrile, levelProbleme
-        // statistici: id, id_user, data, %
+        // db: id, username, email, password, punctaj
+        // statistici: id, id_user, categorie, date, %
 
         // un user da un input - cod!!!! si sa compilam si sa comparam rezultatele sa vedem daca codul e corect
         loginBtn.setOnClickListener(new View.OnClickListener() {
@@ -40,20 +41,28 @@ public class Login extends AppCompatActivity {
                 if (user.equals("") || pass.equals("")) {
                     Toast.makeText(Login.this, "Username or password field empty!", Toast.LENGTH_SHORT).show();
                 } else {
-                    User user_ex = new User(-1, user, pass, user);
+                    SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", 0); // 0 - for private mode
+                    SharedPreferences.Editor editor = pref.edit();
 
-                    if (databaseHelper.searchUser(user_ex) == -1) {
-                        Toast.makeText(Login.this, "Username / Email doesn't exist! Use Sign Up!", Toast.LENGTH_SHORT).show();
-                    } else if (databaseHelper.searchUser(user_ex) == 1) {
-                        Toast.makeText(Login.this, "Wrong password!", Toast.LENGTH_SHORT).show();
-                    } else {
-                        Toast.makeText(Login.this, "Succes!", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(Login.this, MainMenu.class);
-                        startActivity(intent);
-                        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
-                    }
+                    editor.putString("username", useremail.getText().toString()); // Storing string
+
+                    editor.apply(); // commit changes
+                    Intent intent = new Intent(Login.this, MainMenu.class);
+                    startActivity(intent);
+                    overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+//                    User user_ex = new User(-1, user, pass, user);
+//
+//                    if (databaseHelper.searchUser(user_ex) == -1) {
+//                        Toast.makeText(Login.this, "Username / Email doesn't exist! Use Sign Up!", Toast.LENGTH_SHORT).show();
+//                    } else if (databaseHelper.searchUser(user_ex) == 1) {
+//                        Toast.makeText(Login.this, "Wrong password!", Toast.LENGTH_SHORT).show();
+//                    } else {
+//                        Toast.makeText(Login.this, "Succes!", Toast.LENGTH_SHORT).show();
+//                        Intent intent = new Intent(Login.this, MainMenu.class);
+//                        startActivity(intent);
+//                        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+//                    }
                 }
-
 
             }
         });

@@ -52,7 +52,7 @@ public class Signup extends AppCompatActivity {
                         Log.d("aaaa", user + " " + email_user + " " + pass + " " + confPass);
                         boolean success = databaseHelper.addUser(new_user);
 
-                        Toast.makeText(Signup.this, "Success!" + success, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(Signup.this, "Success!", Toast.LENGTH_SHORT).show();
 
                         Intent intent = new Intent(Signup.this, MainMenu.class);
                         startActivity(intent);

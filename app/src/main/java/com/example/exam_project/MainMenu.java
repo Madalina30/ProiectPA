@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -24,6 +25,9 @@ public class MainMenu extends AppCompatActivity {
         setContentView(R.layout.activity_main_menu);
 
         setData();
+        SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", 0); // 0 - for private mode
+        username.setText(pref.getString("username", "username.getText().toString()")); // Storing string
+
         buttonsClick();
     }
 
@@ -68,9 +72,11 @@ public class MainMenu extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // go to grile activity
-                Intent intent = new Intent(MainMenu.this, GrileMain.class);
-                startActivity(intent);
-                overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                JSONParser jsonParser = new JSONParser();
+                jsonParser.parseJSON(MainMenu.this);
+//                Intent intent = new Intent(MainMenu.this, GrileMain.class);
+//                startActivity(intent);
+//                overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
             }
         });
 

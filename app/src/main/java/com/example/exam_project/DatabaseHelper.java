@@ -16,6 +16,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String USERNAME = "username";
     public static final String PASSWORD = "password";
     public static final String EMAIL = "email";
+    private SQLiteDatabase db;
 
 
     public DatabaseHelper(@Nullable Context context) {
@@ -24,14 +25,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String createTable = "CREATE TABLE " + USERS + " (" +
+        String createTableUsers = "CREATE TABLE " + USERS + " (" +
                 ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
                 USERNAME + " text UNIQUE," +
                 PASSWORD + " text," +
-                EMAIL + " text UNIQUE)";
+                EMAIL + " text UNIQUE," +
+                "punctaj INTEGER)";
 
-        db.execSQL(createTable);
-
+        db.execSQL(createTableUsers);
     }
 
     @Override
@@ -40,7 +41,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     public boolean addUser(User user) {
-        SQLiteDatabase db = this.getWritableDatabase();
+        db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
 
         cv.put(USERNAME, user.getUsername());
@@ -49,11 +50,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         long insert = db.insert(USERS, null, cv);
         return insert != -1;
+
     }
 
     public int searchUser(User user) {
         int good = -1;
-        SQLiteDatabase db = this.getReadableDatabase();
+        db = this.getReadableDatabase();
         String sqlquerry = "SELECT * FROM " + USERS + " WHERE " + USERNAME + " = '" + user.getUsername() + "' OR " + EMAIL + " = '" + user.getEmail() + "';";
 
         Cursor cursor = db.rawQuery(sqlquerry, null);
@@ -73,7 +75,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     public void deleteUser(User user){
-        SQLiteDatabase db = this.getWritableDatabase();
+        db = this.getWritableDatabase();
         String sql = "DELETE FROM " + USERS + " WHERE " + USERNAME + " = '" + user.getUsername() + "';";
         db.execSQL(sql);
 
