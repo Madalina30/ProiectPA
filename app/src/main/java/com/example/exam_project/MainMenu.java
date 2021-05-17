@@ -110,4 +110,8 @@ public class MainMenu extends AppCompatActivity {
             }
         });
     }
+    @Override
+    public void onBackPressed() {
+
+    }
 }

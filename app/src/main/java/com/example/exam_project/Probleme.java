@@ -92,4 +92,8 @@ public class Probleme extends AppCompatActivity {
     }
     // TODO: backButton -> atunci cand e in template_grila ca si contentView, atunci sa te duca la activity_grile_main
     // TODo: daca esti in activity_grile_main, nu-ti mai pasa ca o sa te duca la MainMenu
+    @Override
+    public void onBackPressed() {
+
+    }
 }

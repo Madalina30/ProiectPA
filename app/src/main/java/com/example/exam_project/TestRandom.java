@@ -65,4 +65,8 @@ public class TestRandom extends AppCompatActivity {
         answerB.setText("al doilea raspuns");
         answerC.setText("al treilea raspuns");
     }
+    @Override
+    public void onBackPressed() {
+
+    }
 }

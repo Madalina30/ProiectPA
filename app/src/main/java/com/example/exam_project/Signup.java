@@ -50,7 +50,7 @@ public class Signup extends AppCompatActivity {
                         User new_user = new User(-1, user, pass, email_user);
 
                         Log.d("aaaa", user + " " + email_user + " " + pass + " " + confPass);
-                        boolean success = databaseHelper.addUser(new_user);
+//                        boolean success = databaseHelper.addUser(new_user);
 
                         Toast.makeText(Signup.this, "Success!", Toast.LENGTH_SHORT).show();
 
@@ -71,5 +71,9 @@ public class Signup extends AppCompatActivity {
                 overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
             }
         });
+    }
+    @Override
+    public void onBackPressed() {
+
     }
 }

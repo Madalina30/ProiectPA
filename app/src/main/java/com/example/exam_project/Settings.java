@@ -100,4 +100,8 @@ public class Settings extends AppCompatActivity {
             }
         });
     }
+    @Override
+    public void onBackPressed() {
+
+    }
 }

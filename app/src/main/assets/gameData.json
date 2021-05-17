@@ -11,13 +11,13 @@
               "b": "uhm, nu stiu sigur",
               "c": "nope...."
             }],
-            "raspuns corect": "a"
+            "raspuns corect": "LOGIC"
           },
           {
             "question_nr": "2",
             "intrebare": "2",
             "raspunsuri": [{
-              "a": "1",
+              "a": "a",
               "b": "2",
               "c": "3"
             }],

@@ -51,4 +51,8 @@ public class UpdateAccount extends AppCompatActivity {
             }
         });
     }
+    @Override
+    public void onBackPressed() {
+
+    }
 }

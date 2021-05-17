@@ -9,7 +9,9 @@
         android:roundIcon="@drawable/ic_icon_java10"
         android:supportsRtl="true"
         android:theme="@style/Theme.Examproject">
-        <activity android:name=".JSONParser"></activity>
+        <activity android:name=".Winner"></activity>
+        <activity android:name=".Lost" />
+        <activity android:name=".JSONParser" />
         <activity android:name=".UpdateAccount" />
         <activity android:name=".Settings" />
         <activity android:name=".TestRandom" />

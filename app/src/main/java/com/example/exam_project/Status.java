@@ -43,4 +43,8 @@ public class Status extends AppCompatActivity {
         // TODO: adapter for scroll view to do this
 
     }
+    @Override
+    public void onBackPressed() {
+
+    }
 }

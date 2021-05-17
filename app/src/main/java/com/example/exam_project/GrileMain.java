@@ -19,6 +19,7 @@ import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -147,40 +148,59 @@ public class GrileMain extends AppCompatActivity {
                         setFunctionality();
                     }
                 });
+                final int[] countCorrectAnswers = {0};
                 nextGrila.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         try {
+                            if (nrIntrebare[0] == 3) {
+                                nextGrila.setText("Finish");
+                            }
                             if (nrIntrebare[0] < grile.getJSONArray(levelNr - 1).length() - 1) {
                                 try {
                                     System.out.println(nrIntrebare[0] + " " + grile.getJSONArray(levelNr - 1).length());
+                                    int answerRadioButtonId = radioGroupGrile.getCheckedRadioButtonId();
+                                    if (answerRadioButtonId != -1) {
+                                        RadioButton answer = findViewById(answerRadioButtonId);
+                                        if (answer.getText().equals(grile.getJSONArray(levelNr - 1).getJSONObject(nrIntrebare[0]).getString("raspuns corect"))) {
+//                                            Toast.makeText(getApplicationContext(), "Correct answer", Toast.LENGTH_SHORT).show();
+                                            countCorrectAnswers[0]++;
+                                        } else {
+//                                            Toast.makeText(getApplicationContext(), "incorrect answer", Toast.LENGTH_SHORT).show();
+                                        }
+                                        answer.setChecked(false);
+                                    } else {
+//                                        Toast.makeText(getApplicationContext(), "missing answer", Toast.LENGTH_SHORT).show();
+                                        // TODO: ALERTA CU NU AI BIFAT NIMIC? esti sigur ca vrei sa continui?
+                                    }
+                                    radioGroupGrile.clearCheck();
                                     nrIntrebare[0]++;
                                     setGrilaThings(grile, nrIntrebare[0], levelNr, levelxGrila, enuntGrila, answerA, answerB, answerC);
+
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
                             } else {
-                                System.out.println("NOPE NU NU NU");
-                                // se vede cate rasp is corecte
-                                // daca e peste 50% corect - congrats screen, daca nu - wrong
+                                System.out.println("NOPE NU NU NU " + (double)countCorrectAnswers[0]/5*100);
+                                if ((double)countCorrectAnswers[0]/5*100 < 50.0) {
+                                    Intent intent = new Intent(GrileMain.this, Lost.class);
+                                    startActivity(intent);
+                                } else {
+                                    setContentView(R.layout.win_template);
+                                    Intent intent = new Intent(GrileMain.this, Winner.class);
+                                    startActivity(intent);
+                                }
+                                overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                                // TODO: SE PUNE LA STATUS
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-                        // TODO: SA SE FACA O VARIABILA CARE NUMARA RASPUNSURILE CORECTE
-                        // o sa te duca la urmatoarea grila, nu la urm activity
-                        // DACA NU A AJUNS LA FINALUL NR DE GRILE - ADIK CAND NR DE LA INTREBARE E MAI MIC DECAT NR MAXIM DE INTREBARI
-//                        setContentView(R.layout.activity_grile_main);
-                        // todo: nu spui daca e corect sau nu decat la final
-                        //  in caz ca a ajuns la ultima intrebare, nextLevel se schimba in "Submit" si te duce la MainMenu, dar inainte
-                        //  iti apare un ecran cu cate puncte ai adunat si cat % ai fct corect si daca esti eligibil pentru a trece la urmatorul nivel
-                        //  daca esti: congrats+points+new level unlocked+next level button+main menu button
-                        //  -> asta o sa se puna in statistici : punctajul (%), data si categoria: tabel in bd
+
+                        double punctaj = (double)countCorrectAnswers[0]/5*100;
+                        // todo: -> asta o sa se puna in statistici : punctajul (punctaj), data si categoria: tabel in bd
                         //  cu data si cat % a fct + categoria, care aici e Grila
                         //  POTI REFACE UN NIVEL SI PUNCTAJUL SE VA REFACE, CHIAR SI IN STATISTICI
-                        //  go to next level - change setGrilaThings
-                        // TODO: cand a ajuns la submit, apare un ecran
-//                        setFunctionality();
                     }
                 });
             }
@@ -189,4 +209,9 @@ public class GrileMain extends AppCompatActivity {
     }
     // TODO: backButton -> atunci cand e in template_grila ca si contentView, atunci sa te duca la activity_grile_main
     // TODo: daca esti in activity_grile_main, nu-ti mai pasa ca o sa te duca la MainMenu
+
+    @Override
+    public void onBackPressed() {
+
+    }
 }
