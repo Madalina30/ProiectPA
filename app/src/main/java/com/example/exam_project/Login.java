@@ -44,7 +44,7 @@ public class Login extends AppCompatActivity {
                     SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", 0); // 0 - for private mode
                     SharedPreferences.Editor editor = pref.edit();
                     if (user.contains("@")) {  // daca se conecteaza cu emailul
-                        editor.putString("email", user);
+                        editor.putString("username", user); // in loc de user sa fie o cautare in baza de date pt acel user in fct de email
                     } else {  // daca se conecteaza cu usernameul
                         editor.putString("username", user);
                     }
