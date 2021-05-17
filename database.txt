@@ -1,0 +1,4 @@
+Username: bf9422ed9ab87d
+Password: 71d97a72
+Host: eu-cdbr-west-01.cleardb.com
+DbName: heroku_9eed7796d02a0d0
