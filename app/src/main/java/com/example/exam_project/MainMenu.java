@@ -72,11 +72,9 @@ public class MainMenu extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // go to grile activity
-                JSONParser jsonParser = new JSONParser();
-                jsonParser.parseJSON(MainMenu.this);
-//                Intent intent = new Intent(MainMenu.this, GrileMain.class);
-//                startActivity(intent);
-//                overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                Intent intent = new Intent(MainMenu.this, GrileMain.class);
+                startActivity(intent);
+                overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
             }
         });
 

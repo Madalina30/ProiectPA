@@ -2,114 +2,110 @@
   "tests": [
     {
       "grile": [
-        {
-          "level_1": [
-            {
-              "question_nr": "1",
-              "enunt": "",
-              "raspunsuri": {
-                "a": "",
-                "b": "",
-                "c": ""
-              },
-              "raspuns corect": "a"
+        [
+          {
+            "question_nr": "1",
+            "enunt": "",
+            "raspunsuri": {
+              "a": "",
+              "b": "",
+              "c": ""
             },
-            {
-              "question_nr": "2",
-              "enunt": "",
-              "raspunsuri": {
-                "a": "",
-                "b": "",
-                "c": ""
-              },
-              "raspuns corect": "a"
+            "raspuns corect": "a"
+          },
+          {
+            "question_nr": "2",
+            "enunt": "",
+            "raspunsuri": {
+              "a": "",
+              "b": "",
+              "c": ""
             },
-            {
-              "question_nr": "3",
-              "enunt": "",
-              "raspunsuri": {
-                "a": "",
-                "b": "",
-                "c": ""
-              },
-              "raspuns corect": "a"
+            "raspuns corect": "a"
+          },
+          {
+            "question_nr": "3",
+            "enunt": "",
+            "raspunsuri": {
+              "a": "",
+              "b": "",
+              "c": ""
             },
-            {
-              "question_nr": "4",
-              "enunt": "",
-              "raspunsuri": {
-                "a": "",
-                "b": "",
-                "c": ""
-              },
-              "raspuns corect": "a"
+            "raspuns corect": "a"
+          },
+          {
+            "question_nr": "4",
+            "enunt": "",
+            "raspunsuri": {
+              "a": "",
+              "b": "",
+              "c": ""
             },
-            {
-              "question_nr": "5",
-              "enunt": "",
-              "raspunsuri": {
-                "a": "",
-                "b": "",
-                "c": ""
-              },
-              "raspuns corect": "a"
-            }
-          ]
-        },
-        {
-          "level_2": [
-            {
-              "question_nr": "1",
-              "enunt": "",
-              "raspunsuri": {
-                "a": "",
-                "b": "",
-                "c": ""
-              },
-              "raspuns corect": "a"
+            "raspuns corect": "a"
+          },
+          {
+            "question_nr": "5",
+            "enunt": "",
+            "raspunsuri": {
+              "a": "",
+              "b": "",
+              "c": ""
             },
-            {
-              "question_nr": "2",
-              "enunt": "",
-              "raspunsuri": {
-                "a": "",
-                "b": "",
-                "c": ""
-              },
-              "raspuns corect": "a"
+            "raspuns corect": "a"
+          }
+        ],
+        [
+          {
+            "question_nr": "1",
+            "enunt": "",
+            "raspunsuri": {
+              "a": "",
+              "b": "",
+              "c": ""
             },
-            {
-              "question_nr": "3",
-              "enunt": "",
-              "raspunsuri": {
-                "a": "",
-                "b": "",
-                "c": ""
-              },
-              "raspuns corect": "a"
+            "raspuns corect": "a"
+          },
+          {
+            "question_nr": "2",
+            "enunt": "",
+            "raspunsuri": {
+              "a": "",
+              "b": "",
+              "c": ""
             },
-            {
-              "question_nr": "4",
-              "enunt": "",
-              "raspunsuri": {
-                "a": "",
-                "b": "",
-                "c": ""
-              },
-              "raspuns corect": "a"
+            "raspuns corect": "a"
+          },
+          {
+            "question_nr": "3",
+            "enunt": "",
+            "raspunsuri": {
+              "a": "",
+              "b": "",
+              "c": ""
             },
-            {
-              "question_nr": "5",
-              "enunt": "",
-              "raspunsuri": {
-                "a": "",
-                "b": "",
-                "c": ""
-              },
-              "raspuns corect": "a"
-            }
-          ]
-        }
+            "raspuns corect": "a"
+          },
+          {
+            "question_nr": "4",
+            "enunt": "",
+            "raspunsuri": {
+              "a": "",
+              "b": "",
+              "c": ""
+            },
+            "raspuns corect": "a"
+          },
+          {
+            "question_nr": "5",
+            "enunt": "",
+            "raspunsuri": {
+              "a": "",
+              "b": "",
+              "c": ""
+            },
+            "raspuns corect": "a"
+          }
+        ]
       ]
     },
     {

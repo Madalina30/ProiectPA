@@ -68,60 +68,13 @@
         app:layout_constraintVertical_bias="0.15">
 
         <LinearLayout
+            android:id="@+id/grileLayout"
+            android:textAlignment="center"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:gravity="center_horizontal">
 
-            <RelativeLayout
-                android:id="@+id/levelSample"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_margin="10dp"
-                android:background="@drawable/btn_bkg">
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Level "
-                        android:textSize="25sp" />
-
-                    <TextView
-                        android:id="@+id/levelGrile"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="1"
-                        android:textSize="25sp" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text=" - max 100 points"
-                        android:textSize="25sp" />
-                </LinearLayout>
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:layout_margin="10dp"
-                android:background="@drawable/gray_bkg"
-                android:padding="10dp">
-
-                <TextView
-                    android:id="@+id/morePointsAndLevels"
-                    android:layout_centerInParent="true"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_horizontal"
-                    android:text="You need more x points to unlock level x"
-                    android:textAlignment="center"
-                    android:textSize="22sp" />
-            </RelativeLayout>
         </LinearLayout>
 
     </ScrollView>

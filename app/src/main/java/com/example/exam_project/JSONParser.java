@@ -37,7 +37,7 @@ public class JSONParser extends AppCompatActivity {
         return json;
     }
 
-    public void parseJSON(AppCompatActivity appCompatActivity){
+    public JSONArray parseJSON(AppCompatActivity appCompatActivity){
         try {
             JSONObject obj = new JSONObject(loadJSON(appCompatActivity));
             JSONArray tests_array = obj.getJSONArray("tests");
@@ -46,12 +46,12 @@ public class JSONParser extends AppCompatActivity {
             System.out.println(tests_array.get(0));
             System.out.println(tests_array.get(1));
 
-            JSONObject grile = tests_array.getJSONObject(0).getJSONArray("grile").getJSONObject(0);
+            JSONArray grile = tests_array.getJSONObject(0).getJSONArray("grile");
             JSONObject probleme = tests_array.getJSONObject(1);
             // for pt obiectele din interiorul nivelelor pana la level1.length()
-            JSONObject level1 = grile.getJSONArray("level_1").getJSONObject(0);
+//            JSONObject level1 = grile.getJSONArray("level_1").getJSONObject(0);
 //            JSONArray level2 = grile.getJSONArray("level_2");
-            System.out.println(level1);
+//            System.out.println(level1);
 //            System.out.println(level2);
 
 
@@ -68,8 +68,11 @@ public class JSONParser extends AppCompatActivity {
 //
 //                formList.add(m_li);
 //            }
+            return grile;
         } catch (JSONException e) {
             e.printStackTrace();
+            return null;
         }
+
     }
 }
