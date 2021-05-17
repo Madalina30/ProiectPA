@@ -43,11 +43,14 @@ public class Login extends AppCompatActivity {
                 } else {
                     SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", 0); // 0 - for private mode
                     SharedPreferences.Editor editor = pref.edit();
-
-                    editor.putString("username", useremail.getText().toString()); // Storing string
+                    if (user.contains("@")) {  // daca se conecteaza cu emailul
+                        editor.putString("email", user);
+                    } else {  // daca se conecteaza cu usernameul
+                        editor.putString("username", user);
+                    }
                     editor.putBoolean("isLogged", true);
 
-                    editor.apply(); // commit changes
+                    editor.apply();
                     Intent intent = new Intent(Login.this, MainMenu.class);
                     startActivity(intent);
                     overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
