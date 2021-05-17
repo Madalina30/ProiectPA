@@ -45,6 +45,7 @@ public class Login extends AppCompatActivity {
                     SharedPreferences.Editor editor = pref.edit();
 
                     editor.putString("username", useremail.getText().toString()); // Storing string
+                    editor.putBoolean("isLogged", true);
 
                     editor.apply(); // commit changes
                     Intent intent = new Intent(Login.this, MainMenu.class);
