@@ -79,6 +79,7 @@
             android:text="This is the question for this grila and it is saying this much yeyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy"
             android:textSize="20sp" />
         <RadioGroup
+            android:id="@+id/radioGroupGrile"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <RadioButton

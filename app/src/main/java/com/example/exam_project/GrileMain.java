@@ -14,11 +14,14 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.w3c.dom.Text;
 
@@ -66,66 +69,25 @@ public class GrileMain extends AppCompatActivity {
         JSONParser jsonParser = new JSONParser();
         JSONArray grile = jsonParser.parseJSON(GrileMain.this);
         for (int i = 0; i < grile.length(); i++) {
-            setMenuGrile(i + 1);
+            setMenuGrile(i + 1, grile);
         }
 // aici cand apasa pe unul din nivele
-//        levelSample.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                // TODO: sa te duca la o grila si sa se transmita niste parametrii necesari pt acea grila
-//                // TODO: sa se verifice la ce nivel este
-//                setContentView(R.layout.template_grila);
-//                TextView levelxGrila = findViewById(R.id.levelxGrila);
-//                TextView enuntGrila = findViewById(R.id.enuntGrila);
-//                TextView answerA = findViewById(R.id.answerA);
-//                TextView answerB = findViewById(R.id.answerB);
-//                TextView answerC = findViewById(R.id.answerC);
-//                TextView points = findViewById(R.id.points);
-//                ImageView backToGrile = findViewById(R.id.backToGrile);
-//                Button nextGrila = findViewById(R.id.nextGrila);
-//                // points se ia din baza de date + level
-//                // TODO: ceva fisier cu enunturi si answers
-//                points.setText("1000");
-//                setGrilaThings(points, levelxGrila, enuntGrila, answerA, answerB, answerC);
-//                backToGrile.setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View v) {
-//                        setContentView(R.layout.activity_grile_main);
-//                        setFunctionality();
-//                    }
-//                });
-//                nextGrila.setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View v) {
-//                        // o sa te duca la urmatoarea grila, nu la urm activity
-//                        setContentView(R.layout.activity_grile_main);
-//                        // todo: nu spui daca e corect sau nu decat la final
-//                        //  in caz ca a ajuns la ultima intrebare, nextLevel se schimba in "Submit" si te duce la MainMenu, dar inainte
-//                        //  iti apare un ecran cu cate puncte ai adunat si cat % ai fct corect si daca esti eligibil pentru a trece la urmatorul nivel
-//                        //  daca esti: congrats+points+new level unlocked+next level button+main menu button
-//                        //  -> asta o sa se puna in statistici : punctajul (%), data si categoria: tabel in bd
-//                        //  cu data si cat % a fct + categoria, care aici e Grila
-//                        //  POTI REFACE UN NIVEL SI PUNCTAJUL SE VA REFACE, CHIAR SI IN STATISTICI
-//                        //  go to next level - change setGrilaThings
-//                        // TODO: cand a ajuns la submit, apare un ecran
-//                        setFunctionality();
-//                    }
-//                });
-//            }
-//        });
     }
 
-    public void setGrilaThings(TextView points, TextView levelxGrila, TextView enuntGrila, TextView answerA, TextView answerB, TextView answerC) {
-        levelxGrila.setText("Level 1");
-        enuntGrila.setText("1. Acesta este primul enunt al primei grile din primul nivel hahahahaha");
-        answerA.setText("primul raspuns");
-        answerB.setText("al doilea raspuns");
-        answerC.setText("al treilea raspuns");
+    @SuppressLint("SetTextI18n")
+    public void setGrilaThings(JSONArray grile, int nrIntrebare, int levelNr, TextView levelxGrila, TextView enuntGrila, TextView answerA, TextView answerB, TextView answerC) throws JSONException {
+        // SE IA DIN JSON CE TREBUIE SA SE PUNA AICI
+        levelxGrila.setText("Level " + levelNr);
+        // 'question_nr'
+        enuntGrila.setText((nrIntrebare + 1) + grile.getJSONArray(levelNr - 1).getJSONObject(nrIntrebare).getString("intrebare"));
+        answerA.setText(grile.getJSONArray(levelNr - 1).getJSONObject(nrIntrebare).getJSONArray("raspunsuri").getJSONObject(0).getString("a"));
+        answerB.setText(grile.getJSONArray(levelNr - 1).getJSONObject(nrIntrebare).getJSONArray("raspunsuri").getJSONObject(0).getString("b"));
+        answerC.setText(grile.getJSONArray(levelNr - 1).getJSONObject(nrIntrebare).getJSONArray("raspunsuri").getJSONObject(0).getString("c"));
     }
 
     @SuppressLint("SetTextI18n")
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
-    public void setMenuGrile(int levelNr) {  // parametru: level si in fct de nivel te duce la ce trebuie
+    public void setMenuGrile(int levelNr, JSONArray grile) {  // parametru: level si in fct de nivel te duce la ce trebuie
         /// o sa fie un for pana la cate leveluri se gasesc in json
         RelativeLayout relativeLayout = new RelativeLayout(this);
         RelativeLayout.LayoutParams layoutParamsRel = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, 200);
@@ -148,7 +110,82 @@ public class GrileMain extends AppCompatActivity {
 
         linearLayout.addView(level);
         relativeLayout.addView(linearLayout);
+
+        // de la relative layout trebuie sa te duca la grila specifica pentru acel nivel (prima din set - momentan chiar prima, dupa random)
+
         grileLayout.addView(relativeLayout);
+
+        relativeLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // TODO: sa te duca la o grila si sa se transmita niste parametrii necesari pt acea grila
+                // TODO: sa se verifice la ce nivel este
+                final int[] nrIntrebare = {0};
+                setContentView(R.layout.template_grila);
+                TextView levelxGrila = findViewById(R.id.levelxGrila);
+                TextView enuntGrila = findViewById(R.id.enuntGrila);
+                RadioGroup radioGroupGrile = findViewById(R.id.radioGroupGrile);
+                // cu asta se verifica care din raspunsuri a fost ales
+                RadioButton answerA = findViewById(R.id.answerA);
+                RadioButton answerB = findViewById(R.id.answerB);
+                RadioButton answerC = findViewById(R.id.answerC);
+                TextView points = findViewById(R.id.points);
+                ImageView backToGrile = findViewById(R.id.backToGrile);
+                Button nextGrila = findViewById(R.id.nextGrila);
+                // points se ia din baza de date + level
+                // TODO: ceva fisier cu enunturi si answers
+                points.setText("1000"); // asta trebuie luat din baza de date
+                try {
+                    setGrilaThings(grile, nrIntrebare[0], levelNr, levelxGrila, enuntGrila, answerA, answerB, answerC);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                backToGrile.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        setContentView(R.layout.activity_grile_main);
+                        setFunctionality();
+                    }
+                });
+                nextGrila.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        try {
+                            if (nrIntrebare[0] < grile.getJSONArray(levelNr - 1).length() - 1) {
+                                try {
+                                    System.out.println(nrIntrebare[0] + " " + grile.getJSONArray(levelNr - 1).length());
+                                    nrIntrebare[0]++;
+                                    setGrilaThings(grile, nrIntrebare[0], levelNr, levelxGrila, enuntGrila, answerA, answerB, answerC);
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            } else {
+                                System.out.println("NOPE NU NU NU");
+                                // se vede cate rasp is corecte
+                                // daca e peste 50% corect - congrats screen, daca nu - wrong
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        // TODO: SA SE FACA O VARIABILA CARE NUMARA RASPUNSURILE CORECTE
+                        // o sa te duca la urmatoarea grila, nu la urm activity
+                        // DACA NU A AJUNS LA FINALUL NR DE GRILE - ADIK CAND NR DE LA INTREBARE E MAI MIC DECAT NR MAXIM DE INTREBARI
+//                        setContentView(R.layout.activity_grile_main);
+                        // todo: nu spui daca e corect sau nu decat la final
+                        //  in caz ca a ajuns la ultima intrebare, nextLevel se schimba in "Submit" si te duce la MainMenu, dar inainte
+                        //  iti apare un ecran cu cate puncte ai adunat si cat % ai fct corect si daca esti eligibil pentru a trece la urmatorul nivel
+                        //  daca esti: congrats+points+new level unlocked+next level button+main menu button
+                        //  -> asta o sa se puna in statistici : punctajul (%), data si categoria: tabel in bd
+                        //  cu data si cat % a fct + categoria, care aici e Grila
+                        //  POTI REFACE UN NIVEL SI PUNCTAJUL SE VA REFACE, CHIAR SI IN STATISTICI
+                        //  go to next level - change setGrilaThings
+                        // TODO: cand a ajuns la submit, apare un ecran
+//                        setFunctionality();
+                    }
+                });
+            }
+        });
+
     }
     // TODO: backButton -> atunci cand e in template_grila ca si contentView, atunci sa te duca la activity_grile_main
     // TODo: daca esti in activity_grile_main, nu-ti mai pasa ca o sa te duca la MainMenu

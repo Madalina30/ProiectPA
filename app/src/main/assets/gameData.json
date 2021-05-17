@@ -5,104 +5,104 @@
         [
           {
             "question_nr": "1",
-            "enunt": "",
-            "raspunsuri": {
-              "a": "",
-              "b": "",
-              "c": ""
-            },
+            "intrebare": "intrebare grila 1: bla blaaaaaaaaaaaaa o sa trecem la javaaaaaaa?",
+            "raspunsuri": [{
+              "a": "LOGIC",
+              "b": "uhm, nu stiu sigur",
+              "c": "nope...."
+            }],
             "raspuns corect": "a"
           },
           {
             "question_nr": "2",
-            "enunt": "",
-            "raspunsuri": {
-              "a": "",
-              "b": "",
-              "c": ""
-            },
+            "intrebare": "2",
+            "raspunsuri": [{
+              "a": "1",
+              "b": "2",
+              "c": "3"
+            }],
             "raspuns corect": "a"
           },
           {
             "question_nr": "3",
-            "enunt": "",
-            "raspunsuri": {
-              "a": "",
-              "b": "",
-              "c": ""
-            },
+            "intrebare": "3",
+            "raspunsuri": [{
+              "a": "1",
+              "b": "2",
+              "c": "3"
+            }],
             "raspuns corect": "a"
           },
           {
             "question_nr": "4",
-            "enunt": "",
-            "raspunsuri": {
-              "a": "",
-              "b": "",
-              "c": ""
-            },
+            "intrebare": "4",
+            "raspunsuri": [{
+              "a": "1",
+              "b": "2",
+              "c": "3"
+            }],
             "raspuns corect": "a"
           },
           {
             "question_nr": "5",
-            "enunt": "",
-            "raspunsuri": {
-              "a": "",
-              "b": "",
-              "c": ""
-            },
+            "intrebare": "5",
+            "raspunsuri": [{
+              "a": "1",
+              "b": "2",
+              "c": "3"
+            }],
             "raspuns corect": "a"
           }
         ],
         [
           {
             "question_nr": "1",
-            "enunt": "",
-            "raspunsuri": {
-              "a": "",
-              "b": "",
-              "c": ""
-            },
-            "raspuns corect": "a"
+            "intrebare": "Pentru nivelul 2: stii java?",
+            "raspunsuri": [{
+              "a": "kind of",
+              "b": "clar da",
+              "c": "nu, nu ma invata nimic Frasinaru"
+            }],
+            "raspuns corect": "c"
           },
           {
             "question_nr": "2",
-            "enunt": "",
-            "raspunsuri": {
+            "intrebare": "",
+            "raspunsuri": [{
               "a": "",
               "b": "",
               "c": ""
-            },
+            }],
             "raspuns corect": "a"
           },
           {
             "question_nr": "3",
-            "enunt": "",
-            "raspunsuri": {
+            "intrebare": "",
+            "raspunsuri": [{
               "a": "",
               "b": "",
               "c": ""
-            },
+            }],
             "raspuns corect": "a"
           },
           {
             "question_nr": "4",
-            "enunt": "",
-            "raspunsuri": {
+            "intrebare": "",
+            "raspunsuri": [{
               "a": "",
               "b": "",
               "c": ""
-            },
+            }],
             "raspuns corect": "a"
           },
           {
             "question_nr": "5",
-            "enunt": "",
-            "raspunsuri": {
+            "intrebare": "",
+            "raspunsuri": [{
               "a": "",
               "b": "",
               "c": ""
-            },
+            }],
             "raspuns corect": "a"
           }
         ]
@@ -112,31 +112,31 @@
       "probleme": [
         {
           "problem_number": "1",
-          "enunt": "",
+          "intrebare": "",
           "rezolvare": "",
           "raspuns": ""
         },
         {
           "problem_number": "2",
-          "enunt": "",
+          "intrebare": "",
           "rezolvare": "",
           "raspuns": ""
         },
         {
           "problem_number": "3",
-          "enunt": "",
+          "intrebare": "",
           "rezolvare": "",
           "raspuns": ""
         },
         {
           "problem_number": "4",
-          "enunt": "",
+          "intrebare": "",
           "rezolvare": "",
           "raspuns": ""
         },
         {
           "problem_number": "5",
-          "enunt": "",
+          "intrebare": "",
           "rezolvare": "",
           "raspuns": ""
         }
