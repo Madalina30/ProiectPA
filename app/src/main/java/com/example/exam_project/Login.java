@@ -12,6 +12,12 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.androidnetworking.AndroidNetworking;
+import com.androidnetworking.error.ANError;
+import com.androidnetworking.interfaces.JSONObjectRequestListener;
+
+import org.json.JSONObject;
+
 public class Login extends AppCompatActivity {
     private EditText useremail, password;
     private Button loginBtn;
@@ -51,21 +57,40 @@ public class Login extends AppCompatActivity {
                     editor.putBoolean("isLogged", true);
 
                     editor.apply();
-                    Intent intent = new Intent(Login.this, MainMenu.class);
-                    startActivity(intent);
-                    overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
-//                    User user_ex = new User(-1, user, pass, user);
+//                    Intent intent = new Intent(Login.this, MainMenu.class);
+//                    startActivity(intent);
+//                    overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                    AndroidNetworking.get("https://exam-net.herokuapp.com/exams/examcontroller.php?view=all").build().getAsJSONObject(new JSONObjectRequestListener() {
+
+                        @Override
+                        public void onResponse(JSONObject response) {
 //
-//                    if (databaseHelper.searchUser(user_ex) == -1) {
-//                        Toast.makeText(Login.this, "Username / Email doesn't exist! Use Sign Up!", Toast.LENGTH_SHORT).show();
-//                    } else if (databaseHelper.searchUser(user_ex) == 1) {
-//                        Toast.makeText(Login.this, "Wrong password!", Toast.LENGTH_SHORT).show();
-//                    } else {
-//                        Toast.makeText(Login.this, "Succes!", Toast.LENGTH_SHORT).show();
-//                        Intent intent = new Intent(Login.this, MainMenu.class);
-//                        startActivity(intent);
-//                        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
-//                    }
+                            User user_ex = new User(-1, user, pass, user);
+//
+                            try {
+                                if (databaseHelper.searchUser(user_ex, response) == -1) {
+                                    Toast.makeText(Login.this, "Username / Email doesn't exist! Use Sign Up!", Toast.LENGTH_SHORT).show();
+                                } else if (databaseHelper.searchUser(user_ex, response) == 1) {
+                                    Toast.makeText(Login.this, "Wrong password!", Toast.LENGTH_SHORT).show();
+                                } else {
+                                    Toast.makeText(Login.this, "Succes!", Toast.LENGTH_SHORT).show();
+                                    Intent intent = new Intent(Login.this, MainMenu.class);
+                                    startActivity(intent);
+                                    overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                                }
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+
+
+                        }
+
+                        @Override
+                        public void onError(ANError anError) {
+                            System.out.println(anError);
+                        }
+                    });
+//
                 }
 
             }
@@ -80,6 +105,7 @@ public class Login extends AppCompatActivity {
             }
         });
     }
+
     @Override
     public void onBackPressed() {
 

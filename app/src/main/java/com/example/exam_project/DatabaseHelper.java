@@ -10,6 +10,10 @@ import android.database.sqlite.SQLiteOpenHelper;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String USERS = "users";
     public static final String ID = "id";
@@ -25,14 +29,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String createTableUsers = "CREATE TABLE " + USERS + " (" +
-                ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
-                USERNAME + " text UNIQUE," +
-                PASSWORD + " text," +
-                EMAIL + " text UNIQUE," +
-                "punctaj INTEGER)";
+//        String createTableUsers = "CREATE TABLE " + USERS + " (" +
+//                ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+//                USERNAME + " text UNIQUE," +
+//                PASSWORD + " text," +
+//                EMAIL + " text UNIQUE," +
+//                "punctaj INTEGER)";
+//
+//        db.execSQL(createTableUsers);
 
-        db.execSQL(createTableUsers);
     }
 
     @Override
@@ -53,28 +58,27 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     }
 
-    public int searchUser(User user) {
-        int good = -1;
-        db = this.getReadableDatabase();
-        String sqlquerry = "SELECT * FROM " + USERS + " WHERE " + USERNAME + " = '" + user.getUsername() + "' OR " + EMAIL + " = '" + user.getEmail() + "';";
+    public int searchUser(User user,JSONObject jsonObject) throws InterruptedException {
+        try {
+            JSONArray users_informations = jsonObject.getJSONArray("exams");
+            for (int i = 0; i < users_informations.length(); i++) {
+                JSONObject username = users_informations.getJSONObject(i);
+//                System.out.println("Username: " + username.get("username") + "\n");
+                if (username.get("username").equals(user.getUsername()) || username.get("email").equals(user.getEmail())) {
+                    if(username.get("password").equals(user.getPassword()))
+                        return 0;
+                    return 1;
+                } else
+                    return -1;
+            }
 
-        Cursor cursor = db.rawQuery(sqlquerry, null);
-
-        if (cursor.moveToFirst()) {
-            do {
-                good = 0;
-                String passCheck = cursor.getString(2);
-                if (!passCheck.equals(user.getPassword()))
-                    good = 1;
-            } while (cursor.moveToNext());
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
-
-        cursor.close();
-
-        return good;
+        return 0;
     }
 
-    public void deleteUser(User user){
+    public void deleteUser(User user) {
         db = this.getWritableDatabase();
         String sql = "DELETE FROM " + USERS + " WHERE " + USERNAME + " = '" + user.getUsername() + "';";
         db.execSQL(sql);
