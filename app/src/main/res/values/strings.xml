@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">ExamQuiz</string>
+    <string name="content_authority">com.example.exam_project</string>
+    <string name="sync_account_type">com.example.exam_project</string>
 </resources>
