@@ -9,10 +9,13 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
 
+import com.androidnetworking.AndroidNetworking;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        AndroidNetworking.initialize(getApplicationContext());
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         final Handler handler = new Handler();

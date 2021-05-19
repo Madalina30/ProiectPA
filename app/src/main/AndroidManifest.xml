@@ -3,7 +3,7 @@
     package="com.example.exam_project">
 
     <uses-permission
-        android:name="android.permission.AUTHENTICATE_ACCOUNTS"
+        android:name="android.permission.INTERNET"
         android:maxSdkVersion="22" />
     <application
         android:allowBackup="true"

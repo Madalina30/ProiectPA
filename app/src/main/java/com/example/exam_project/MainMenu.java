@@ -12,6 +12,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.androidnetworking.AndroidNetworking;
+
 import java.util.function.LongConsumer;
 
 public class MainMenu extends AppCompatActivity {
@@ -21,6 +23,7 @@ public class MainMenu extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        AndroidNetworking.initialize(getApplicationContext());
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menu);
 
@@ -72,9 +75,11 @@ public class MainMenu extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // go to grile activity
-                Intent intent = new Intent(MainMenu.this, GrileMain.class);
-                startActivity(intent);
-                overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                REST rest = new REST();
+                rest.getter();
+//                Intent intent = new Intent(MainMenu.this, GrileMain.class);
+//                startActivity(intent);
+//                overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
             }
         });
 
