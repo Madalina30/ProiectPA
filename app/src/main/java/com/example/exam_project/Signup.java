@@ -1,5 +1,6 @@
 package com.example.exam_project;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -12,6 +13,17 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class Signup extends AppCompatActivity {
     private EditText username, email, password, confirmPass;
@@ -57,6 +69,39 @@ public class Signup extends AppCompatActivity {
 //                        boolean success = databaseHelper.addUser(new_user);
 
                         Toast.makeText(Signup.this, "Success!", Toast.LENGTH_SHORT).show();
+
+                        // first verify if user exists
+                        String url = "https://exam-net.herokuapp.com/exams/examcontroller.php?view=all";
+                        StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
+                                new Response.Listener<String>() {
+                                    @Override
+                                    public void onResponse(String response) {
+                                        Toast.makeText(Signup.this, response.trim(), Toast.LENGTH_SHORT).show();
+
+                                    }
+                                },
+                                new Response.ErrorListener() {
+                                    @Override
+                                    public void onErrorResponse(VolleyError error) {
+                                        Toast.makeText(Signup.this, error.toString(), Toast.LENGTH_SHORT).show();
+
+                                    }
+                                }
+                        ) {
+                            @Nullable
+                            @Override
+                            protected Map<String, String> getParams() {
+                                Map<String, String> params = new HashMap<>();
+                                params.put("username", user);
+                                params.put("password", pass);
+                                params.put("email", email_user);
+
+                                return params;
+                            }
+                        };
+
+                        RequestQueue requestQueue = Volley.newRequestQueue(Signup.this);
+                        requestQueue.add(stringRequest);
 
                         SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", 0); // 0 - for private mode
                         SharedPreferences.Editor editor = pref.edit();

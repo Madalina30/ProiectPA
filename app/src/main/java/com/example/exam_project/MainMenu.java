@@ -83,32 +83,9 @@ public class MainMenu extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // go to grile activity
-                JSONObject jsonObject = new JSONObject();
-                try {
-                    jsonObject.put("firstname", "Amit");
-                    jsonObject.put("lastname", "Shekhar");
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-                AndroidNetworking.post("https://exam-net.herokuapp.com/exams/create.php")
-                        .addJSONObjectBody(jsonObject)
-                        .setTag("test")
-                        .setPriority(Priority.MEDIUM)
-                        .build()
-                        .getAsJSONObject(new JSONObjectRequestListener() {
-                            @Override
-                            public void onResponse(JSONObject response) {
-                                System.out.println(response);
-                            }
-                            @Override
-                            public void onError(ANError error) {
-                                System.out.println(error);
-                            }
-                        });
-//
-//                Intent intent = new Intent(MainMenu.this, GrileMain.class);
-//                startActivity(intent);
-//                overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                Intent intent = new Intent(MainMenu.this, GrileMain.class);
+                startActivity(intent);
+                overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
             }
         });
 
