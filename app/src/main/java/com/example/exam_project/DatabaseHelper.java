@@ -63,14 +63,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             JSONArray users_informations = jsonObject.getJSONArray("exams");
             for (int i = 0; i < users_informations.length(); i++) {
                 JSONObject username = users_informations.getJSONObject(i);
-//                System.out.println("Username: " + username.get("username") + "\n");
+                System.out.println("Username: " + username.get("username") + "\n");
                 if (username.get("username").equals(user.getUsername()) || username.get("email").equals(user.getEmail())) {
                     if(username.get("password").equals(user.getPassword()))
                         return 0;
                     return 1;
-                } else
-                    return -1;
+                }
+
             }
+            return -1;
 
         } catch (JSONException e) {
             e.printStackTrace();
