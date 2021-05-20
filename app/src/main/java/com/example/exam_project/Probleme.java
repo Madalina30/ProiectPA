@@ -87,7 +87,7 @@ public class Probleme extends AppCompatActivity {
 
     public void setProblemeThings(TextView points, TextView titluProblema, TextView enuntProblema, TextView rezolvare) {
         titluProblema.setText("Problema 1");
-        enuntProblema.setText("1. Acesta este primul enunt al primei probleme din primul nivel hahahahaha");
+        enuntProblema.setText("Acesta este primul enunt al primei probleme din primul nivel hahahahaha");
 
     }
     // TODO: backButton -> atunci cand e in template_grila ca si contentView, atunci sa te duca la activity_grile_main

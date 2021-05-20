@@ -26,6 +26,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.w3c.dom.Text;
 
+import java.util.LinkedHashSet;
+import java.util.Random;
+import java.util.Set;
+
 public class GrileMain extends AppCompatActivity {
     private ImageView backToMainMenu;
     private ScrollView grileScroll;
@@ -45,11 +49,7 @@ public class GrileMain extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_grile_main);
         setFunctionality();
-
-        // TODO: we have to add by hand here the levels and the ones that can't be reached
-        // TODO: and change them when it's time and they reached those needya points
-        // TODO: adapter for scroll view to do this
-
+        // TODO: points
     }
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
@@ -80,6 +80,8 @@ public class GrileMain extends AppCompatActivity {
         // SE IA DIN JSON CE TREBUIE SA SE PUNA AICI
         levelxGrila.setText("Level " + levelNr);
         // 'question_nr'
+        // se repeta unele....
+//        int intrRandom = (int) (Math.random()*grile.getJSONArray(levelNr).length());
         enuntGrila.setText((nrIntrebare + 1) + grile.getJSONArray(levelNr - 1).getJSONObject(nrIntrebare).getString("intrebare"));
         answerA.setText(grile.getJSONArray(levelNr - 1).getJSONObject(nrIntrebare).getJSONArray("raspunsuri").getJSONObject(0).getString("a"));
         answerB.setText(grile.getJSONArray(levelNr - 1).getJSONObject(nrIntrebare).getJSONArray("raspunsuri").getJSONObject(0).getString("b"));
@@ -181,8 +183,12 @@ public class GrileMain extends AppCompatActivity {
                                     e.printStackTrace();
                                 }
                             } else {
-                                System.out.println("NOPE NU NU NU " + (double)countCorrectAnswers[0]/5*100);
-                                if ((double)countCorrectAnswers[0]/5*100 < 50.0) {
+                                double punctaj = (double)countCorrectAnswers[0]/5*100;
+                                // todo: -> asta o sa se puna in statistici : punctajul (punctaj), data si categoria: tabel in bd
+                                //  cu data si cat % a fct + categoria, care aici e Grila
+                                //  POTI REFACE UN NIVEL SI PUNCTAJUL SE VA REFACE, CHIAR SI IN STATISTICI
+                                System.out.println("NOPE NU NU NU " + punctaj);
+                                if (punctaj < 50.0) {
                                     Intent intent = new Intent(GrileMain.this, Lost.class);
                                     startActivity(intent);
                                 } else {
@@ -196,11 +202,6 @@ public class GrileMain extends AppCompatActivity {
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-
-                        double punctaj = (double)countCorrectAnswers[0]/5*100;
-                        // todo: -> asta o sa se puna in statistici : punctajul (punctaj), data si categoria: tabel in bd
-                        //  cu data si cat % a fct + categoria, care aici e Grila
-                        //  POTI REFACE UN NIVEL SI PUNCTAJUL SE VA REFACE, CHIAR SI IN STATISTICI
                     }
                 });
             }

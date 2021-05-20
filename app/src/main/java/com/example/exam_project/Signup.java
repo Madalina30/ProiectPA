@@ -61,7 +61,7 @@ public class Signup extends AppCompatActivity {
 
                         editor.putString("email", email_user);
                         editor.putBoolean("isLogged", true);
-
+                        editor.putInt("points", 0);
                         editor.apply();
 
                         Intent intent = new Intent(Signup.this, MainMenu.class);
