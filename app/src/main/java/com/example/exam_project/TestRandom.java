@@ -26,6 +26,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.w3c.dom.Text;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class TestRandom extends AppCompatActivity {
     private ImageView backToMainMenu;
 
@@ -44,12 +47,13 @@ public class TestRandom extends AppCompatActivity {
         JSONArray grile = jsonParser.parseJSON(TestRandom.this);
         for (int i = 0; i < grile.length(); i++) {
             setMenuGrile(i + 1, grile);
+            // aici se pot da date?
         }
 // aici cand apasa pe unul din nivele
     }
 
     @SuppressLint("SetTextI18n")
-    public void setGrilaThings(JSONArray grile, int nrIntrebare, TextView levelxGrila, TextView enuntGrila, TextView answerA, TextView answerB, TextView answerC) throws JSONException {
+    public List<Integer> setGrilaThings(JSONArray grile, int nrIntrebare, TextView levelxGrila, TextView enuntGrila, TextView answerA, TextView answerB, TextView answerC) throws JSONException {
         // SE IA DIN JSON CE TREBUIE SA SE PUNA AICI
         levelxGrila.setText("Test");
         // aici o sa se ia random
@@ -59,6 +63,10 @@ public class TestRandom extends AppCompatActivity {
         answerA.setText(grile.getJSONArray(levelRandom).getJSONObject(intrRandom).getJSONArray("raspunsuri").getJSONObject(0).getString("a"));
         answerB.setText(grile.getJSONArray(levelRandom).getJSONObject(intrRandom).getJSONArray("raspunsuri").getJSONObject(0).getString("b"));
         answerC.setText(grile.getJSONArray(levelRandom).getJSONObject(intrRandom).getJSONArray("raspunsuri").getJSONObject(0).getString("c"));
+        List<Integer> levelIntrebare = new ArrayList<>();
+        levelIntrebare.add(levelRandom);
+        levelIntrebare.add(intrRandom);
+        return levelIntrebare;
     }
 
     @SuppressLint("SetTextI18n")
@@ -81,20 +89,24 @@ public class TestRandom extends AppCompatActivity {
         // points se ia din baza de date + level
         // TODO: ceva fisier cu enunturi si answers
         points.setText("1000"); // asta trebuie luat din baza de date
+        List<Integer> levelIntr = new ArrayList<>();
         try {
-            setGrilaThings(grile, nrIntrebare[0], levelxGrila, enuntGrila, answerA, answerB, answerC);
+            levelIntr = setGrilaThings(grile, nrIntrebare[0], levelxGrila, enuntGrila, answerA, answerB, answerC);
         } catch (JSONException e) {
             e.printStackTrace();
         }
         backToGrile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // TODO: ARE YOU SURE? YOU WILL LOOSE STATUS OR SMTH ALERT
                 Intent intent = new Intent(TestRandom.this, MainMenu.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
             }
         });
         final int[] countCorrectAnswers = {0};
+
+        List<Integer> finalLevelIntr = levelIntr;
         nextGrila.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -103,11 +115,10 @@ public class TestRandom extends AppCompatActivity {
                 }
                 if (nrIntrebare[0] < 9) {
                     try {
-                        System.out.println(nrIntrebare[0] + " " + grile.getJSONArray(levelNr - 1).length());
                         int answerRadioButtonId = radioGroupGrile.getCheckedRadioButtonId();
                         if (answerRadioButtonId != -1) {
                             RadioButton answer = findViewById(answerRadioButtonId);
-                            if (answer.getText().equals(grile.getJSONArray(levelNr - 1).getJSONObject(nrIntrebare[0]).getString("raspuns corect"))) {
+                            if (answer.getText().equals(grile.getJSONArray(finalLevelIntr.get(0)).getJSONObject(finalLevelIntr.get(1)).getString("raspuns corect"))) {
 //                                            Toast.makeText(getApplicationContext(), "Correct answer", Toast.LENGTH_SHORT).show();
                                 countCorrectAnswers[0]++;
                             } else {
