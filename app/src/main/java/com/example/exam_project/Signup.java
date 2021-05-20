@@ -25,6 +25,7 @@ import com.android.volley.toolbox.Volley;
 import java.util.HashMap;
 import java.util.Map;
 
+
 public class Signup extends AppCompatActivity {
     private EditText username, email, password, confirmPass;
     private Button signupBtn;
@@ -70,7 +71,7 @@ public class Signup extends AppCompatActivity {
                         Toast.makeText(Signup.this, "Success!", Toast.LENGTH_SHORT).show();
                         //TODO: modifiy here Livi
                         // first verify if user and/or email exists - get from db
-                        String url = "https://exam-net.herokuapp.com/exams/examcontroller.php";
+                        String url = "https://examnet.000webhostapp.com/index.php";
                         StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
                                 new Response.Listener<String>() {
                                     @Override
@@ -102,13 +103,13 @@ public class Signup extends AppCompatActivity {
 
                         RequestQueue requestQueue = Volley.newRequestQueue(Signup.this);
                         requestQueue.add(stringRequest);
-                        boolean success = databaseHelper.addUser(new_user);
-                        if (success) {
-                            Log.d("aaaa", "user added");
-                        } else {
-                            Log.d("aaaa", "user NOT added");
-
-                        }
+//                        boolean success = databaseHelper.addUser(new_user);
+//                        if (success) {
+//                            Log.d("aaaa", "user added");
+//                        } else {
+//                            Log.d("aaaa", "user NOT added");
+//
+//                        }
                             // pana aici request
                         SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", 0); // 0 - for private mode
                         SharedPreferences.Editor editor = pref.edit();
