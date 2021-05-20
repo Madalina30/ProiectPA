@@ -66,17 +66,17 @@ public class Signup extends AppCompatActivity {
                         User new_user = new User(-1, user, pass, email_user);
 
                         Log.d("aaaa", user + " " + email_user + " " + pass + " " + confPass);
-//                        boolean success = databaseHelper.addUser(new_user);
 
                         Toast.makeText(Signup.this, "Success!", Toast.LENGTH_SHORT).show();
-
-                        // first verify if user exists
-                        String url = "https://exam-net.herokuapp.com/exams/examcontroller.php?view=all";
+                        //TODO: modifiy here Livi
+                        // first verify if user and/or email exists - get from db
+                        String url = "https://exam-net.herokuapp.com/exams/examcontroller.php";
                         StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
                                 new Response.Listener<String>() {
                                     @Override
                                     public void onResponse(String response) {
-                                        Toast.makeText(Signup.this, response.trim(), Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(Signup.this, response.trim(), Toast.LENGTH_LONG).show();
+                                        System.out.println("UHM AICI FA" + response.trim());
 
                                     }
                                 },
@@ -102,7 +102,14 @@ public class Signup extends AppCompatActivity {
 
                         RequestQueue requestQueue = Volley.newRequestQueue(Signup.this);
                         requestQueue.add(stringRequest);
+                        boolean success = databaseHelper.addUser(new_user);
+                        if (success) {
+                            Log.d("aaaa", "user added");
+                        } else {
+                            Log.d("aaaa", "user NOT added");
 
+                        }
+                            // pana aici request
                         SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", 0); // 0 - for private mode
                         SharedPreferences.Editor editor = pref.edit();
                         editor.putString("username", user); // in loc de user sa fie o cautare in baza de date pt acel user in fct de email
