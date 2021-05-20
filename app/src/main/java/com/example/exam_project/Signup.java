@@ -3,6 +3,7 @@ package com.example.exam_project;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -53,6 +54,15 @@ public class Signup extends AppCompatActivity {
 //                        boolean success = databaseHelper.addUser(new_user);
 
                         Toast.makeText(Signup.this, "Success!", Toast.LENGTH_SHORT).show();
+
+                        SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", 0); // 0 - for private mode
+                        SharedPreferences.Editor editor = pref.edit();
+                        editor.putString("username", user); // in loc de user sa fie o cautare in baza de date pt acel user in fct de email
+
+                        editor.putString("email", email_user);
+                        editor.putBoolean("isLogged", true);
+
+                        editor.apply();
 
                         Intent intent = new Intent(Signup.this, MainMenu.class);
                         startActivity(intent);

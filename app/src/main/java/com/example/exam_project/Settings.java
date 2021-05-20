@@ -72,7 +72,7 @@ public class Settings extends AppCompatActivity {
                             public void onClick(DialogInterface dialog, int which) {
 //                                databaseHelper.deleteUser(dummy);
                                 SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", 0); // 0 - for private mode
-                                pref.edit().putBoolean("isLogged", false).apply();
+                                pref.edit().putBoolean("isLogged", false).putString("username", "").apply();
                                 Toast.makeText(Settings.this, "Too bad...", Toast.LENGTH_SHORT).show();
                                 Intent intent = new Intent(Settings.this, Login.class);
                                 startActivity(intent);
@@ -93,7 +93,7 @@ public class Settings extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", 0); // 0 - for private mode
-                pref.edit().putBoolean("isLogged", false).apply();
+                pref.edit().putBoolean("isLogged", false).putString("username", "").apply();
                 Intent intent = new Intent(Settings.this, Login.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.fade_in, R.anim.fade_out);

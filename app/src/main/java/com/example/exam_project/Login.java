@@ -47,16 +47,6 @@ public class Login extends AppCompatActivity {
                 if (user.equals("") || pass.equals("")) {
                     Toast.makeText(Login.this, "Username or password field empty!", Toast.LENGTH_SHORT).show();
                 } else {
-                    SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", 0); // 0 - for private mode
-                    SharedPreferences.Editor editor = pref.edit();
-                    if (user.contains("@")) {  // daca se conecteaza cu emailul
-                        editor.putString("username", user); // in loc de user sa fie o cautare in baza de date pt acel user in fct de email
-                    } else {  // daca se conecteaza cu usernameul
-                        editor.putString("username", user);
-                    }
-                    editor.putBoolean("isLogged", true);
-
-                    editor.apply();
 //                    Intent intent = new Intent(Login.this, MainMenu.class);
 //                    startActivity(intent);
 //                    overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
@@ -74,6 +64,17 @@ public class Login extends AppCompatActivity {
                                     Toast.makeText(Login.this, "Wrong password!", Toast.LENGTH_SHORT).show();
                                 } else {
                                     Toast.makeText(Login.this, "Succes!", Toast.LENGTH_SHORT).show();
+
+                                    SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", 0); // 0 - for private mode
+                                    SharedPreferences.Editor editor = pref.edit();
+                                    if (user.contains("@")) {  // daca se conecteaza cu emailul
+                                        editor.putString("username", user); // in loc de user sa fie o cautare in baza de date pt acel user in fct de email
+                                    } else {  // daca se conecteaza cu usernameul
+                                        editor.putString("username", user);
+                                    }
+                                    editor.putBoolean("isLogged", true);
+
+                                    editor.apply();
                                     Intent intent = new Intent(Login.this, MainMenu.class);
                                     startActivity(intent);
                                     overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
