@@ -19,8 +19,7 @@ switch($view){
 		break;
 
 	case "register":
-		echo "Register";
-		break;
+		echo $_POST
 
 	case "" :
 		//404 - not found;

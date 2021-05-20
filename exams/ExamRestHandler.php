@@ -26,6 +26,10 @@ class ExamRestHandler extends SimpleRest {
 			echo $response;
 		}
 	}
+
+	function addUser(){
+		
+	}
 	
 	public function encodeJson($responseData) {
 		$jsonResponse = json_encode($responseData);

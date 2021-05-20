@@ -14,5 +14,6 @@ Class ExamNet{
 		$this->exam = $dbcontroller->executeSelectQuery($query);
 		return $this->exam;
 	}	
+
 }
 ?>

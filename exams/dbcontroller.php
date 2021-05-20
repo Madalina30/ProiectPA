@@ -26,5 +26,6 @@ class DBController {
 		if(!empty($resultset))
 			return $resultset;
 	}
+
 }
 ?>
