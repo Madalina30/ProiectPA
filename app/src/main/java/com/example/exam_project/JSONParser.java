@@ -37,6 +37,25 @@ public class JSONParser extends AppCompatActivity {
         return json;
     }
 
+    public JSONArray parseProbleme(AppCompatActivity appCompatActivity) {
+        try {
+            JSONObject obj = new JSONObject(loadJSON(appCompatActivity));
+            JSONArray tests_array = obj.getJSONArray("tests");
+            ArrayList<HashMap<String, String>> formList = new ArrayList<HashMap<String, String>>();
+            HashMap<String, String> m_li;
+            System.out.println(tests_array.get(0));
+            System.out.println(tests_array.get(1));
+
+            JSONArray probleme = tests_array.getJSONObject(1).getJSONArray("probleme");
+
+            return probleme;
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return null;
+        }
+
+    }
+
     public JSONArray parseJSON(AppCompatActivity appCompatActivity){
         try {
             JSONObject obj = new JSONObject(loadJSON(appCompatActivity));
@@ -47,27 +66,6 @@ public class JSONParser extends AppCompatActivity {
             System.out.println(tests_array.get(1));
 
             JSONArray grile = tests_array.getJSONObject(0).getJSONArray("grile");
-            JSONObject probleme = tests_array.getJSONObject(1);
-            // for pt obiectele din interiorul nivelelor pana la level1.length()
-//            JSONObject level1 = grile.getJSONArray("level_1").getJSONObject(0);
-//            JSONArray level2 = grile.getJSONArray("level_2");
-//            System.out.println(level1);
-//            System.out.println(level2);
-
-
-//            for (int i = 0; i < m_jArry.length(); i++) {
-//                JSONObject jo_inside = m_jArry.getJSONObject(i);
-//                Log.d("Details-->", jo_inside.getString("formule"));
-//                String formula_value = jo_inside.getString("formule");
-//                String url_value = jo_inside.getString("url");
-//
-//                //Add your values in your `ArrayList` as below:
-//                m_li = new HashMap<String, String>();
-//                m_li.put("formule", formula_value);
-//                m_li.put("url", url_value);
-//
-//                formList.add(m_li);
-//            }
             return grile;
         } catch (JSONException e) {
             e.printStackTrace();
