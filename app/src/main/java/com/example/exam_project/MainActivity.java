@@ -8,6 +8,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
+import android.view.WindowManager;
 
 import com.androidnetworking.AndroidNetworking;
 
@@ -18,6 +19,8 @@ public class MainActivity extends AppCompatActivity {
         AndroidNetworking.initialize(getApplicationContext());
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
         final Handler handler = new Handler();
         SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", 0);
         if (pref.getBoolean("isLogged", false)) {
