@@ -76,15 +76,15 @@ public class Signup extends AppCompatActivity {
                                 new Response.Listener<String>() {
                                     @Override
                                     public void onResponse(String response) {
-                                        Toast.makeText(Signup.this, response.trim(), Toast.LENGTH_LONG).show();
-                                        System.out.println("UHM AICI FA" + response.trim());
+//                                        Toast.makeText(Signup.this, response.trim(), Toast.LENGTH_LONG).show();
+                                        System.out.println(response.trim());
 
                                     }
                                 },
                                 new Response.ErrorListener() {
                                     @Override
                                     public void onErrorResponse(VolleyError error) {
-                                        Toast.makeText(Signup.this, error.toString(), Toast.LENGTH_SHORT).show();
+//                                        Toast.makeText(Signup.this, error.toString(), Toast.LENGTH_SHORT).show();
 
                                     }
                                 }
