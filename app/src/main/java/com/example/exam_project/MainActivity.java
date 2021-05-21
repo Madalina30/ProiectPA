@@ -26,7 +26,6 @@ public class MainActivity extends AppCompatActivity {
         if (pref.getBoolean("isLogged", false)) {
             handler.postDelayed(new Runnable() {
                 public void run() {
-                    // TODO: Your application init goes here.
                     Intent mInHome = new Intent(MainActivity.this, MainMenu.class);
                     MainActivity.this.startActivity(mInHome);
                     MainActivity.this.finish();
@@ -35,7 +34,6 @@ public class MainActivity extends AppCompatActivity {
         } else {
             handler.postDelayed(new Runnable() {
                 public void run() {
-                    // TODO: Your application init goes here.
                     Intent mInHome = new Intent(MainActivity.this, Login.class);
                     MainActivity.this.startActivity(mInHome);
                     MainActivity.this.finish();

@@ -38,6 +38,7 @@ public class MainMenu extends AppCompatActivity {
         setData();
         SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", 0); // 0 - for private mode
         username.setText(pref.getString("username", "")); // Storing string
+        points.setText(String.valueOf(pref.getInt("points",0)));
 
         buttonsClick();
     }

@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.media.Image;
 import android.os.Build;
 import android.os.Bundle;
@@ -35,6 +36,7 @@ public class GrileMain extends AppCompatActivity {
     private ImageView backToMainMenu;
     private ScrollView grileScroll;
     private LinearLayout grileLayout;
+    private TextView points;
 
     public ScrollView getStatusScroll() {
         return grileScroll;
@@ -52,7 +54,8 @@ public class GrileMain extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setFunctionality();
-        // TODO: points
+        SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", 0); // 0 - for private mode
+        points.setText(String.valueOf(pref.getInt("points",0)));
     }
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
@@ -60,6 +63,8 @@ public class GrileMain extends AppCompatActivity {
         backToMainMenu = findViewById(R.id.backToMainMenu);
         grileScroll = findViewById(R.id.grileScroll);
         grileLayout = findViewById(R.id.grileLayout);
+        points = findViewById(R.id.points);
+
 
         backToMainMenu.setOnClickListener(new View.OnClickListener() {
             @Override

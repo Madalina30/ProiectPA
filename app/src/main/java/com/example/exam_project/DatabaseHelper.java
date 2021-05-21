@@ -45,20 +45,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     }
 
-    public boolean addUser(User user) {
-        db = this.getWritableDatabase();
-        ContentValues cv = new ContentValues();
-
-        cv.put(USERNAME, user.getUsername());
-        cv.put(PASSWORD, user.getPassword());
-        cv.put(EMAIL, user.getEmail());
-
-        long insert = db.insert(USERS, null, cv);
-        return insert != -1;
-
-    }
-
-    public int searchUser(User user,JSONObject jsonObject) throws InterruptedException {
+        public int searchUser(User user,JSONObject jsonObject) throws InterruptedException {
         try {
             JSONArray users_informations = jsonObject.getJSONArray("exams");
             for (int i = 0; i < users_informations.length(); i++) {

@@ -17,6 +17,8 @@ import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 public class Login extends AppCompatActivity {
@@ -75,6 +77,18 @@ public class Login extends AppCompatActivity {
                                     } else {  // daca se conecteaza cu usernameul
                                         editor.putString("username", user);
                                     }
+                                    int stop = 0;
+                                    JSONArray users_informations = response.getJSONArray("exams");
+                                    for (int i = 0; i < users_informations.length() && stop == 0; i++) {
+                                        JSONObject username = users_informations.getJSONObject(i);
+                                        if (username.get("username").equals(user_ex.getUsername()) || username.get("email").equals(user_ex.getEmail())) {
+//                                            System.out.println(username.get("punctaj").getClass());
+                                            editor.putInt("points", Integer.parseInt(String.valueOf(username.get("punctaj"))));
+                                            stop = 1;
+
+                                        }
+                                    }
+
                                     editor.putBoolean("isLogged", true);
 
                                     editor.apply();
@@ -82,7 +96,7 @@ public class Login extends AppCompatActivity {
                                     startActivity(intent);
                                     overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
                                 }
-                            } catch (InterruptedException e) {
+                            } catch (InterruptedException | JSONException e) {
                                 e.printStackTrace();
                             }
 

@@ -69,8 +69,6 @@ public class Signup extends AppCompatActivity {
                         Log.d("aaaa", user + " " + email_user + " " + pass + " " + confPass);
 
                         Toast.makeText(Signup.this, "Success!", Toast.LENGTH_SHORT).show();
-                        //TODO: modifiy here Livi
-                        // first verify if user and/or email exists - get from db
                         String url = "https://examnet.000webhostapp.com/index.php";
                         StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
                                 new Response.Listener<String>() {
