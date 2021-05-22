@@ -1,5 +1,6 @@
 package com.example.exam_project;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
@@ -13,6 +14,16 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
+
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class Settings extends AppCompatActivity {
     private ImageView backToMainMenu;
@@ -42,19 +53,64 @@ public class Settings extends AppCompatActivity {
         resetProgressBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO RESET PROGRESS + ALTERT (0 points db, 0 in status
-                // first an alert because you will need to do everything from 0
-                Intent intent = new Intent(Settings.this, MainMenu.class);
-                startActivity(intent);
-                overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+
+
+                new AlertDialog.Builder(Settings.this)
+                        .setTitle("Reset progress")
+                        .setMessage("Are you sure you want to reset your progress?")
+                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", 0); // 0 - for private mode
+                                int points = 0;
+
+                                String url = "https://examnet.000webhostapp.com/pointsAdd.php";
+                                StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
+                                        new Response.Listener<String>() {
+                                            @Override
+                                            public void onResponse(String response) {
+                                                System.out.println(response.trim());
+
+                                            }
+                                        },
+                                        new Response.ErrorListener() {
+                                            @Override
+                                            public void onErrorResponse(VolleyError error) {
+                                            }
+                                        }
+                                ) {
+                                    SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", 0); // 0 - for private mode
+
+                                    @Nullable
+                                    @Override
+                                    protected Map<String, String> getParams() {
+                                        Map<String, String> params = new HashMap<>();
+                                        params.put("username", pref.getString("username", ""));
+                                        params.put("points", String.valueOf(points));
+                                        //category -> test, data, punctaj -> status
+                                        return params;
+                                    }
+                                };
+
+                                RequestQueue requestQueue = Volley.newRequestQueue(Settings.this);
+                                requestQueue.add(stringRequest);
+
+                                SharedPreferences.Editor editor = pref.edit();
+                                editor.putInt("points", points);
+                                editor.apply();
+                                Intent intent = new Intent(Settings.this, MainMenu.class);
+                                startActivity(intent);
+                                overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                            }
+                        })
+                        .setNegativeButton(android.R.string.no, null)
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .show();
             }
         });
 
         updateAccountBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                // te va duce la un activity asemanator cu signup, doar ca iti updatezi datele
                 Intent intent = new Intent(Settings.this, UpdateAccount.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
@@ -79,12 +135,9 @@ public class Settings extends AppCompatActivity {
                             }
                         })
 
-                        // A null listener allows the button to dismiss the dialog and take no further action.
                         .setNegativeButton(android.R.string.no, null)
                         .setIcon(android.R.drawable.ic_dialog_alert)
                         .show();
-                // first an alert because it is a dangerous thing to do
-
             }
         });
 
@@ -99,6 +152,7 @@ public class Settings extends AppCompatActivity {
             }
         });
     }
+
     @Override
     public void onBackPressed() {
 

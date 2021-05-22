@@ -63,6 +63,7 @@ public class TestRandom extends AppCompatActivity {
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
     public void setFunctionality() {
+
         JSONParser jsonParser = new JSONParser();
         JSONArray grile = jsonParser.parseJSON(TestRandom.this);
         for (int i = 0; i < grile.length(); i++) {
@@ -165,7 +166,18 @@ public class TestRandom extends AppCompatActivity {
                             answer.setChecked(false);
                         } else {
 //                                        Toast.makeText(getApplicationContext(), "missing answer", Toast.LENGTH_SHORT).show();
-                            // TODO: ALERTA CU NU AI BIFAT NIMIC? esti sigur ca vrei sa continui?
+                            new AlertDialog.Builder(TestRandom.this)
+                                    .setTitle("No Answer!")
+                                    .setMessage("Continui fara sa bifezi?")
+                                    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int which) {
+
+                                        }
+                                    })
+
+                                    .setNegativeButton(android.R.string.no, null)
+                                    .setIcon(android.R.drawable.ic_dialog_alert)
+                                    .show();
                         }
                         // nu il ia in considerare pe ultimul wtf
                         radioGroupGrile.clearCheck();

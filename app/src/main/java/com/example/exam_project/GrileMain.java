@@ -202,9 +202,12 @@ public class GrileMain extends AppCompatActivity {
                                 double punctaj = (double) countCorrectAnswers[0] / 5 * 100;
                                 int points = countCorrectAnswers[0] * 20;
                                 // TODO POTI REFACE UN NIVEL SI PUNCTAJUL SE VA REFACE, CHIAR SI IN STATISTICI
-                                System.out.println("NOPE NU NU NU " + punctaj);
+//                                System.out.println("NOPE NU NU NU " + punctaj);
 
-                                points += pref.getInt("points",0);
+
+                                SharedPreferences.Editor editor = pref.edit();
+                                editor.putInt("pointsWonOrLost", points).apply();
+                                points += pref.getInt("points", 0);
 
                                 String url = "https://examnet.000webhostapp.com/status.php";
                                 StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
@@ -283,11 +286,12 @@ public class GrileMain extends AppCompatActivity {
                                 requestQueue.add(stringRequest);
 
                                 SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", 0); // 0 - for private mode
-                                SharedPreferences.Editor editor = pref.edit();
+                                editor = pref.edit();
                                 editor.putInt("points", points);
                                 editor.apply();
 
                                 if (punctaj < 50.0) {
+
                                     Intent intent = new Intent(GrileMain.this, Lost.class);
                                     startActivity(intent);
                                 } else {

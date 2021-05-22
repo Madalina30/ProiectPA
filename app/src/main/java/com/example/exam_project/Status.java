@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -16,6 +17,15 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.androidnetworking.AndroidNetworking;
+import com.androidnetworking.error.ANError;
+import com.androidnetworking.interfaces.JSONObjectRequestListener;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class Status extends AppCompatActivity {
     private ImageView backToMainMenu;
@@ -32,11 +42,32 @@ public class Status extends AppCompatActivity {
         backToMainMenu = findViewById(R.id.backToMainMenu);
         layoutStatus = findViewById(R.id.layoutStatus);
 
-        // cat timp o sa se gaseasca in bd o sa se apeleze o functie care adauga la status
-        //status -> id,username,category (string), date (String), String
-        // TODO JSON STUFF GET
-        for (int i = 0; i < 20; i++)        //get json -> username - username here -> afisam
-            addToStatus("Grile", "2020/02/02", "47");
+        AndroidNetworking.get("https://exam-net.herokuapp.com/statuses/statcontroller.php?view=all").build().getAsJSONObject(new JSONObjectRequestListener() {
+
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+                    SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", 0); // 0 - for private mode
+                    int stop = 0;
+                    JSONArray users_informations = response.getJSONArray("exams");
+                    for (int i = 0; i < users_informations.length(); i++) {
+                        JSONObject username = users_informations.getJSONObject(i);
+                        if (username.get("username").equals(pref.getString("username",""))) {
+                            addToStatus(String.valueOf(username.get("category")), (String) username.get("date"), (String) username.get("procent"));
+
+                        }
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onError(ANError anError) {
+                System.out.println(anError);
+            }
+        });
 
         backToMainMenu.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -96,6 +127,7 @@ public class Status extends AppCompatActivity {
 
         layoutStatus.addView(relativeLayout);
     }
+
     @Override
     public void onBackPressed() {
 

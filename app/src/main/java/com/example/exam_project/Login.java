@@ -85,10 +85,9 @@ public class Login extends AppCompatActivity {
                                                 editor.putString("email",user);
                                             } else {  // daca se conecteaza cu usernameul
                                                 editor.putString("username", user);
-                                                editor.putString("email", user_ex.getEmail());
+                                                editor.putString("email", (String) username.get("email"));
 
                                             }
-
                                             stop = 1;
                                         }
                                     }
