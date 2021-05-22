@@ -13,6 +13,7 @@ import android.media.Image;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.SystemClock;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -78,10 +79,13 @@ public class TestRandom extends AppCompatActivity {
         // aici o sa se ia random
         int levelRandom = (int) (Math.random() * grile.length());
         int intrRandom = (int) (Math.random() * grile.getJSONArray(levelRandom).length());
+//        System.out.println("level random: " + levelRandom + " intr random " + intrRandom);
         enuntGrila.setText((nrIntrebare + 1) + grile.getJSONArray(levelRandom).getJSONObject(intrRandom).getString("intrebare"));
         answerA.setText(grile.getJSONArray(levelRandom).getJSONObject(intrRandom).getJSONArray("raspunsuri").getJSONObject(0).getString("a"));
         answerB.setText(grile.getJSONArray(levelRandom).getJSONObject(intrRandom).getJSONArray("raspunsuri").getJSONObject(0).getString("b"));
         answerC.setText(grile.getJSONArray(levelRandom).getJSONObject(intrRandom).getJSONArray("raspunsuri").getJSONObject(0).getString("c"));
+//        System.out.println(enuntGrila.getText() + "\n" + answerA.getText() + "\n" + answerB.getText() + "\n" + answerC.getText()
+//                + "\n" + grile.getJSONArray(levelRandom).getJSONObject(intrRandom).getString("raspuns corect"));
         List<Integer> levelIntrebare = new ArrayList<>();
         levelIntrebare.add(levelRandom);
         levelIntrebare.add(intrRandom);
@@ -137,11 +141,11 @@ public class TestRandom extends AppCompatActivity {
         });
         final int[] countCorrectAnswers = {0};
 
-        List<Integer> finalLevelIntr = levelIntr;
+        final List<Integer>[] finalLevelIntr = new List[]{levelIntr};
         nextGrila.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (nrIntrebare[0] == 9) {
+                if (nrIntrebare[0] == 8) {
                     nextGrila.setText("Finish");
                 }
                 if (nrIntrebare[0] < 9) {
@@ -149,20 +153,24 @@ public class TestRandom extends AppCompatActivity {
                         int answerRadioButtonId = radioGroupGrile.getCheckedRadioButtonId();
                         if (answerRadioButtonId != -1) {
                             RadioButton answer = findViewById(answerRadioButtonId);
-                            if (answer.getText().equals(grile.getJSONArray(finalLevelIntr.get(0)).getJSONObject(finalLevelIntr.get(1)).getString("raspuns corect"))) {
-//                                            Toast.makeText(getApplicationContext(), "Correct answer", Toast.LENGTH_SHORT).show();
+//                            System.out.println(nrIntrebare[0] + " " + finalLevelIntr[0].size() + " aici ceva" + finalLevelIntr[0].get(0) + " " + finalLevelIntr[0].get(0));
+                            if (answer.getText().equals(grile.getJSONArray(finalLevelIntr[0].get(0)).getJSONObject(finalLevelIntr[0].get(1)).getString("raspuns corect"))) {
                                 countCorrectAnswers[0]++;
+
+//                                Toast.makeText(getApplicationContext(), "Correct answer " + countCorrectAnswers[0], Toast.LENGTH_SHORT).show();
+
                             } else {
-//                                            Toast.makeText(getApplicationContext(), "incorrect answer", Toast.LENGTH_SHORT).show();
+//                                            Toast.makeText(getApplicationContext(), "incorrect answer " + countCorrectAnswers[0], Toast.LENGTH_SHORT).show();
                             }
                             answer.setChecked(false);
                         } else {
 //                                        Toast.makeText(getApplicationContext(), "missing answer", Toast.LENGTH_SHORT).show();
                             // TODO: ALERTA CU NU AI BIFAT NIMIC? esti sigur ca vrei sa continui?
                         }
+                        // nu il ia in considerare pe ultimul wtf
                         radioGroupGrile.clearCheck();
                         nrIntrebare[0]++;
-                        setGrilaThings(grile, nrIntrebare[0], levelxGrila, enuntGrila, answerA, answerB, answerC);
+                        finalLevelIntr[0] = setGrilaThings(grile, nrIntrebare[0], levelxGrila, enuntGrila, answerA, answerB, answerC);
 
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -170,9 +178,14 @@ public class TestRandom extends AppCompatActivity {
                 } else {
                     // TODO: SE PUNE LA STATUS
                     double punctaj = (double) countCorrectAnswers[0] / 5 * 100;
+
                     int points = countCorrectAnswers[0] * 20;
-                    SharedPreferences pref1 = getApplicationContext().getSharedPreferences("MyPref", 0); // 0 - for private mode
+                    SharedPreferences pref1 = getApplicationContext().getSharedPreferences("MyPref", 0);
+                    SharedPreferences.Editor editor = pref1.edit();
+                    editor.putInt("pointsWonOrLost", points).apply();
                     points += pref1.getInt("points",0);
+//                    Log.d("aaaa", String.valueOf(punctaj));
+
                     System.out.println("NOPE NU NU NU " + punctaj);
                     //adaug in db (rest)
 
@@ -263,9 +276,9 @@ public class TestRandom extends AppCompatActivity {
                     requestQueue.add(stringRequest);
 
                     SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", 0); // 0 - for private mode
-                    SharedPreferences.Editor editor = pref.edit();
-                    editor.putInt("points", points);
-                    editor.apply();
+                    SharedPreferences.Editor editor2 = pref.edit();
+                    editor2.putInt("points", points);
+                    editor2.apply();
 
 
 

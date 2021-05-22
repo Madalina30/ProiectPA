@@ -111,11 +111,11 @@
             "question_nr": "1",
             "intrebare": ". Care vor fi valorile variabilelor a, b și c după execuția secvenței de mai jos? \nint a = 0, b = 1, c = (++a >= b-- ? a ++ : ++b);",
             "raspunsuri": [{
-              "a": "kind of",
-              "b": "clar da",
-              "c": "nu, nu ma invata nimic Frasinaru"
+              "a": "a=2, b=1, c=1",
+              "b": "a=1, b=0, c=1",
+              "c": "a=2, b=0, c=1"
             }],
-            "raspuns corect": "c"
+            "raspuns corect": "a=2, b=0, c=1"
           },
           {
             "question_nr": "2",
