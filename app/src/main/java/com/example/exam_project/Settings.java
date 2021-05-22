@@ -42,6 +42,7 @@ public class Settings extends AppCompatActivity {
         resetProgressBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //TODO RESET PROGRESS + ALTERT (0 points db, 0 in status
                 // first an alert because you will need to do everything from 0
                 Intent intent = new Intent(Settings.this, MainMenu.class);
                 startActivity(intent);
@@ -64,16 +65,11 @@ public class Settings extends AppCompatActivity {
         deteleAccountBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DatabaseHelper databaseHelper = new DatabaseHelper(Settings.this);
-
-                User dummy = new User();
-
                 new AlertDialog.Builder(Settings.this)
                         .setTitle("Delete entry")
                         .setMessage("Are you sure you want to delete your account?")
                         .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
-//                                databaseHelper.deleteUser(dummy);
                                 SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", 0); // 0 - for private mode
                                 pref.edit().putBoolean("isLogged", false).putString("username", "").apply();
                                 Toast.makeText(Settings.this, "Too bad...", Toast.LENGTH_SHORT).show();

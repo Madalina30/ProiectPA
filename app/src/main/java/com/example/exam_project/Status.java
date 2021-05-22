@@ -33,7 +33,9 @@ public class Status extends AppCompatActivity {
         layoutStatus = findViewById(R.id.layoutStatus);
 
         // cat timp o sa se gaseasca in bd o sa se apeleze o functie care adauga la status
-        for (int i = 0; i < 20; i++)
+        //status -> id,username,category (string), date (String), String
+        // TODO JSON STUFF GET
+        for (int i = 0; i < 20; i++)        //get json -> username - username here -> afisam
             addToStatus("Grile", "2020/02/02", "47");
 
         backToMainMenu.setOnClickListener(new View.OnClickListener() {
@@ -46,8 +48,6 @@ public class Status extends AppCompatActivity {
             }
         });
         // TODO: when a game is done, the status scroll will receive a status_template object inside, with variables changed
-        // TODO: adapter for scroll view to do this
-
     }
 
     @SuppressLint("SetTextI18n")

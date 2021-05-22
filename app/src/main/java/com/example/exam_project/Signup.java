@@ -101,14 +101,7 @@ public class Signup extends AppCompatActivity {
 
                         RequestQueue requestQueue = Volley.newRequestQueue(Signup.this);
                         requestQueue.add(stringRequest);
-//                        boolean success = databaseHelper.addUser(new_user);
-//                        if (success) {
-//                            Log.d("aaaa", "user added");
-//                        } else {
-//                            Log.d("aaaa", "user NOT added");
-//
-//                        }
-                            // pana aici request
+
                         SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", 0); // 0 - for private mode
                         SharedPreferences.Editor editor = pref.edit();
                         editor.putString("username", user); // in loc de user sa fie o cautare in baza de date pt acel user in fct de email
@@ -116,7 +109,9 @@ public class Signup extends AppCompatActivity {
                         editor.putString("email", email_user);
                         editor.putBoolean("isLogged", true);
                         editor.putInt("points", 0);
+                        editor.putString("password",pass);
                         editor.apply();
+
 
                         Intent intent = new Intent(Signup.this, MainMenu.class);
                         startActivity(intent);

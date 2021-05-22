@@ -2,6 +2,7 @@ package com.example.exam_project;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -31,7 +32,7 @@ public class UpdateAccount extends AppCompatActivity {
         updateAccBtn = findViewById(R.id.signupBtn);
         SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", 0); // 0 - for private mode
         username.setText(pref.getString("username", ""));
-//        email.setText(pref.getString("email", ""));
+        email.setText(pref.getString("email",""));
 
 
         backToSettings.setOnClickListener(new View.OnClickListener() {
@@ -46,11 +47,33 @@ public class UpdateAccount extends AppCompatActivity {
         updateAccBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 // TODO: mai intai vede daca ai modificat ceva si daca da, atunci da update in baza de date la cele modificate
                 //  plus oldPass trb sa coincida cu ce e in baza de date la userul respectiv
-                Intent intent = new Intent(UpdateAccount.this, Settings.class);
-                startActivity(intent);
-                overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+
+                if(oldPass.getText().toString().equals(pref.getString("password",""))) {
+                    if(oldPass.getText().toString().equals(newPass.getText().toString())){
+                        //toast sunt egale
+                    }
+                    else{
+                        //TODO: bd send
+                        // TODO: alerta cu esti sigur - BONUS
+
+                        @SuppressLint("CommitPrefEdits") SharedPreferences.Editor editor = pref.edit();
+                        editor.putString("password", String.valueOf(newPass)).apply();
+
+                        Intent intent = new Intent(UpdateAccount.this, Settings.class);
+                        startActivity(intent);
+                        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                    }
+
+                }
+                else{
+                    //toast error
+                }
+
+
+
             }
         });
     }

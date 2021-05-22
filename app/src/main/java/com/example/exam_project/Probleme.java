@@ -90,8 +90,6 @@ public class Probleme extends AppCompatActivity {
         relativeLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO: sa te duca la o grila si sa se transmita niste parametrii necesari pt acea grila
-                // TODO: sa se verifice la ce nivel este
                 final int[] nrIntrebare = {0};
                 setContentView(R.layout.template_problemaa);
                 try {
@@ -139,7 +137,6 @@ public class Probleme extends AppCompatActivity {
         ImageView backToProbleme = findViewById(R.id.backToProbleme);
         Button verificarePb = findViewById(R.id.verificarePb);
         // points se ia din baza de date + level
-        // TODO: ceva fisier cu enunturi si answers
         points.setText("1000");
         setProblemeThings(titluProblema, enuntProblema, probleme.getJSONObject(levelNr - 1).getString("titlu"),
                 probleme.getJSONObject(levelNr - 1).getString("intrebare"));
@@ -172,8 +169,7 @@ public class Probleme extends AppCompatActivity {
         enuntProblema.setText(enunt);
 
     }
-    // TODO: backButton -> atunci cand e in template_grila ca si contentView, atunci sa te duca la activity_grile_main
-    // TODo: daca esti in activity_grile_main, nu-ti mai pasa ca o sa te duca la MainMenu
+
     @Override
     public void onBackPressed() {
 

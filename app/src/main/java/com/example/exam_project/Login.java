@@ -72,11 +72,7 @@ public class Login extends AppCompatActivity {
 
                                     SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", 0); // 0 - for private mode
                                     SharedPreferences.Editor editor = pref.edit();
-                                    if (user.contains("@")) {  // daca se conecteaza cu emailul
-                                        editor.putString("username", user); // in loc de user sa fie o cautare in baza de date pt acel user in fct de email
-                                    } else {  // daca se conecteaza cu usernameul
-                                        editor.putString("username", user);
-                                    }
+
                                     int stop = 0;
                                     JSONArray users_informations = response.getJSONArray("exams");
                                     for (int i = 0; i < users_informations.length() && stop == 0; i++) {
@@ -84,12 +80,21 @@ public class Login extends AppCompatActivity {
                                         if (username.get("username").equals(user_ex.getUsername()) || username.get("email").equals(user_ex.getEmail())) {
 //                                            System.out.println(username.get("punctaj").getClass());
                                             editor.putInt("points", Integer.parseInt(String.valueOf(username.get("punctaj"))));
-                                            stop = 1;
+                                            if (user.contains("@")) {  // daca se conecteaza cu emailul
+                                                editor.putString("username", user_ex.getUsername()); // in loc de user sa fie o cautare in baza de date pt acel user in fct de email
+                                                editor.putString("email",user);
+                                            } else {  // daca se conecteaza cu usernameul
+                                                editor.putString("username", user);
+                                                editor.putString("email", user_ex.getEmail());
 
+                                            }
+
+                                            stop = 1;
                                         }
                                     }
 
                                     editor.putBoolean("isLogged", true);
+                                    editor.putString("password",user_ex.getPassword());
 
                                     editor.apply();
                                     Intent intent = new Intent(Login.this, MainMenu.class);

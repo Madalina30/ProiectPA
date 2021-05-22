@@ -1,5 +1,6 @@
 package com.example.exam_project;
 
+import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -23,12 +24,23 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.w3c.dom.Text;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.LinkedHashSet;
+import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 
@@ -55,7 +67,7 @@ public class GrileMain extends AppCompatActivity {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setFunctionality();
         SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", 0); // 0 - for private mode
-        points.setText(String.valueOf(pref.getInt("points",0)));
+        points.setText(String.valueOf(pref.getInt("points", 0)));
     }
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
@@ -129,8 +141,6 @@ public class GrileMain extends AppCompatActivity {
         relativeLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO: sa te duca la o grila si sa se transmita niste parametrii necesari pt acea grila
-                // TODO: sa se verifice la ce nivel este
                 final int[] nrIntrebare = {0};
                 setContentView(R.layout.template_grila);
                 TextView levelxGrila = findViewById(R.id.levelxGrila);
@@ -143,8 +153,6 @@ public class GrileMain extends AppCompatActivity {
                 TextView points = findViewById(R.id.points);
                 ImageView backToGrile = findViewById(R.id.backToGrile);
                 Button nextGrila = findViewById(R.id.nextGrila);
-                // points se ia din baza de date + level
-                // TODO: ceva fisier cu enunturi si answers
                 points.setText("1000"); // asta trebuie luat din baza de date
                 try {
                     setGrilaThings(grile, nrIntrebare[0], levelNr, levelxGrila, enuntGrila, answerA, answerB, answerC);
@@ -181,7 +189,6 @@ public class GrileMain extends AppCompatActivity {
                                         answer.setChecked(false);
                                     } else {
 //                                        Toast.makeText(getApplicationContext(), "missing answer", Toast.LENGTH_SHORT).show();
-                                        // TODO: ALERTA CU NU AI BIFAT NIMIC? esti sigur ca vrei sa continui?
                                     }
                                     radioGroupGrile.clearCheck();
                                     nrIntrebare[0]++;
@@ -191,11 +198,91 @@ public class GrileMain extends AppCompatActivity {
                                     e.printStackTrace();
                                 }
                             } else {
-                                double punctaj = (double)countCorrectAnswers[0]/5*100;
-                                // todo: -> asta o sa se puna in statistici : punctajul (punctaj), data si categoria: tabel in bd
-                                //  cu data si cat % a fct + categoria, care aici e Grila
-                                //  POTI REFACE UN NIVEL SI PUNCTAJUL SE VA REFACE, CHIAR SI IN STATISTICI
+                                double punctaj = (double) countCorrectAnswers[0] / 5 * 100;
+                                int points = countCorrectAnswers[0] * 20;
+                                // TODO POTI REFACE UN NIVEL SI PUNCTAJUL SE VA REFACE, CHIAR SI IN STATISTICI
                                 System.out.println("NOPE NU NU NU " + punctaj);
+
+                                String url = "https://examnet.000webhostapp.com/status.php";
+                                StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
+                                        new Response.Listener<String>() {
+                                            @Override
+                                            public void onResponse(String response) {
+//                                        Toast.makeText(Signup.this, response.trim(), Toast.LENGTH_LONG).show();
+                                                System.out.println(response.trim());
+
+                                            }
+                                        },
+                                        new Response.ErrorListener() {
+                                            @Override
+                                            public void onErrorResponse(VolleyError error) {
+//                                        Toast.makeText(Signup.this, error.toString(), Toast.LENGTH_SHORT).show();
+
+                                            }
+                                        }
+                                ) {
+                                    SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", 0); // 0 - for private mode
+
+
+                                    @Nullable
+                                    @Override
+                                    protected Map<String, String> getParams() {
+                                        Map<String, String> params = new HashMap<>();
+                                        @SuppressLint("SimpleDateFormat") SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd 'at' HH:mm:ss z");
+                                        Date date = new Date(System.currentTimeMillis());
+                                        System.out.println(formatter.format(date));
+                                        params.put("username", pref.getString("username", ""));
+                                        params.put("category", "Grile");
+                                        params.put("date", formatter.format(date));
+                                        params.put("points", String.valueOf(punctaj));
+                                        //category -> test, data, punctaj -> status
+                                        return params;
+                                    }
+                                };
+
+                                RequestQueue requestQueue = Volley.newRequestQueue(GrileMain.this);
+                                requestQueue.add(stringRequest);
+
+                                url = "https://examnet.000webhostapp.com/pointsAdd.php";
+                                stringRequest = new StringRequest(Request.Method.POST, url,
+                                        new Response.Listener<String>() {
+                                            @Override
+                                            public void onResponse(String response) {
+//                                        Toast.makeText(Signup.this, response.trim(), Toast.LENGTH_LONG).show();
+                                                System.out.println(response.trim());
+
+                                            }
+                                        },
+                                        new Response.ErrorListener() {
+                                            @Override
+                                            public void onErrorResponse(VolleyError error) {
+//                                        Toast.makeText(Signup.this, error.toString(), Toast.LENGTH_SHORT).show();
+
+                                            }
+                                        }
+                                ) {
+                                    SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", 0); // 0 - for private mode
+
+
+                                    @Nullable
+                                    @Override
+                                    protected Map<String, String> getParams() {
+                                        Map<String, String> params = new HashMap<>();
+                                        params.put("username", pref.getString("username", ""));
+                                        params.put("points", String.valueOf(points));
+                                        //category -> test, data, punctaj -> status
+                                        return params;
+                                    }
+                                };
+
+                                requestQueue = Volley.newRequestQueue(GrileMain.this);
+                                requestQueue.add(stringRequest);
+
+                                SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", 0); // 0 - for private mode
+                                SharedPreferences.Editor editor = pref.edit();
+                                editor.putInt("points", points);
+                                editor.apply();
+
                                 if (punctaj < 50.0) {
                                     Intent intent = new Intent(GrileMain.this, Lost.class);
                                     startActivity(intent);
@@ -205,7 +292,6 @@ public class GrileMain extends AppCompatActivity {
                                     startActivity(intent);
                                 }
                                 overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
-                                // TODO: SE PUNE LA STATUS
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -216,8 +302,6 @@ public class GrileMain extends AppCompatActivity {
         });
 
     }
-    // TODO: backButton -> atunci cand e in template_grila ca si contentView, atunci sa te duca la activity_grile_main
-    // TODo: daca esti in activity_grile_main, nu-ti mai pasa ca o sa te duca la MainMenu
 
     @Override
     public void onBackPressed() {
