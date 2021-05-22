@@ -171,6 +171,8 @@ public class TestRandom extends AppCompatActivity {
                     // TODO: SE PUNE LA STATUS
                     double punctaj = (double) countCorrectAnswers[0] / 5 * 100;
                     int points = countCorrectAnswers[0] * 20;
+                    SharedPreferences pref1 = getApplicationContext().getSharedPreferences("MyPref", 0); // 0 - for private mode
+                    points += pref1.getInt("points",0);
                     System.out.println("NOPE NU NU NU " + punctaj);
                     //adaug in db (rest)
 
@@ -224,6 +226,7 @@ public class TestRandom extends AppCompatActivity {
                     // pana aici request
 
                     url = "https://examnet.000webhostapp.com/pointsAdd.php";
+                    int finalPoints = points;
                     stringRequest = new StringRequest(Request.Method.POST, url,
                             new Response.Listener<String>() {
                                 @Override
@@ -250,7 +253,7 @@ public class TestRandom extends AppCompatActivity {
                         protected Map<String, String> getParams() {
                             Map<String, String> params = new HashMap<>();
                             params.put("username", pref.getString("username", ""));
-                            params.put("points", String.valueOf(points));
+                            params.put("points", String.valueOf(finalPoints));
                             //category -> test, data, punctaj -> status
                             return params;
                         }

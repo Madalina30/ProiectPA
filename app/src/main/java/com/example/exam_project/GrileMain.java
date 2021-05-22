@@ -153,7 +153,8 @@ public class GrileMain extends AppCompatActivity {
                 TextView points = findViewById(R.id.points);
                 ImageView backToGrile = findViewById(R.id.backToGrile);
                 Button nextGrila = findViewById(R.id.nextGrila);
-                points.setText("1000"); // asta trebuie luat din baza de date
+                SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", 0); // 0 - for private mode
+                points.setText(String.valueOf(pref.getInt("points", 0)));
                 try {
                     setGrilaThings(grile, nrIntrebare[0], levelNr, levelxGrila, enuntGrila, answerA, answerB, answerC);
                 } catch (JSONException e) {
@@ -203,6 +204,8 @@ public class GrileMain extends AppCompatActivity {
                                 // TODO POTI REFACE UN NIVEL SI PUNCTAJUL SE VA REFACE, CHIAR SI IN STATISTICI
                                 System.out.println("NOPE NU NU NU " + punctaj);
 
+                                points += pref.getInt("points",0);
+
                                 String url = "https://examnet.000webhostapp.com/status.php";
                                 StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
                                         new Response.Listener<String>() {
@@ -244,6 +247,7 @@ public class GrileMain extends AppCompatActivity {
                                 requestQueue.add(stringRequest);
 
                                 url = "https://examnet.000webhostapp.com/pointsAdd.php";
+                                int finalPoints = points;
                                 stringRequest = new StringRequest(Request.Method.POST, url,
                                         new Response.Listener<String>() {
                                             @Override
@@ -269,7 +273,7 @@ public class GrileMain extends AppCompatActivity {
                                     protected Map<String, String> getParams() {
                                         Map<String, String> params = new HashMap<>();
                                         params.put("username", pref.getString("username", ""));
-                                        params.put("points", String.valueOf(points));
+                                        params.put("points", String.valueOf(finalPoints));
                                         //category -> test, data, punctaj -> status
                                         return params;
                                     }
