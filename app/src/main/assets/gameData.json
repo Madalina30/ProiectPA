@@ -5,59 +5,111 @@
         [
           {
             "question_nr": "1",
-            "intrebare": "intrebare grila 1: bla blaaaaaaaaaaaaa o sa trecem la javaaaaaaa?",
+            "intrebare": ". Să considerăm declarația A a = new A(); unde clasa A este definită mai jos: \nclass A implements Runnable { \n    int counter = 0; \n    public void run() { while (true) counter++; }\n}\n\nCare dintre variantele de mai jos instanțiază și lanseaza un fir de execuție?",
             "raspunsuri": [{
-              "a": "LOGIC",
-              "b": "uhm, nu stiu sigur",
-              "c": "nope...."
+              "a": "new Thread(a).start();",
+              "b": "a.run();",
+              "c": "new Thread(a).run();"
             }],
-            "raspuns corect": "LOGIC"
+            "raspuns corect": "new Thread(a).start();"
           },
           {
             "question_nr": "2",
-            "intrebare": "2",
+            "intrebare": ". Care dintre următoarele atribuiri sunt greșite din punct de vedere sintactic (vor provoca eroare la compilare)?",
             "raspunsuri": [{
-              "a": "a",
-              "b": "2",
-              "c": "3"
+              "a": "byte a = 128;",
+              "b": "short b = 128 * 129;",
+              "c": "double d = (float) 10E2;"
             }],
-            "raspuns corect": "a"
+            "raspuns corect": "byte a = 128;"
           },
           {
             "question_nr": "3",
-            "intrebare": "3",
+            "intrebare": ". Care dintre următoarele instrucțiuni de import sunt greșite din punct de vedere sintactic?",
             "raspunsuri": [{
-              "a": "1",
-              "b": "2",
-              "c": "3"
+              "a": "import java.lang.Object;",
+              "b": "import java.*;",
+              "c": "import package java.awt;"
             }],
-            "raspuns corect": "a"
+            "raspuns corect": "import package java.awt;"
           },
           {
             "question_nr": "4",
-            "intrebare": "4",
+            "intrebare": ". Ce va afișa secvența de mai jos? \nint a,b;\nfor (a = 10, b = 1; a-- > ++b ; ) ;\nSystem.out.println((a--) + \",\" + (++b));",
             "raspunsuri": [{
-              "a": "1",
-              "b": "2",
-              "c": "3"
+              "a": "4,5",
+              "b": "5,7",
+              "c": "6,7"
             }],
-            "raspuns corect": "a"
+            "raspuns corect": "5,7"
           },
           {
             "question_nr": "5",
-            "intrebare": "5",
+            "intrebare": ". Ce se poate spune despre subprogramul Java alăturat? \nint i = 1, suma = 0;\nfor ( ; ; ) {\n suma += i++;\n if (i > 5) break;\n}\nSystem.out.print(suma);",
             "raspunsuri": [{
-              "a": "1",
-              "b": "2",
-              "c": "3"
+              "a": "Eroare la compilare: lipsesc părțile componente ale lui for",
+              "b": "Subprogramul se compilează și la execuție afișează 10",
+              "c": "Subprogramul se compilează și la execuție afișează 15"
             }],
-            "raspuns corect": "a"
+            "raspuns corect": "Subprogramul se compilează și la execuție afișează 15"
           }
         ],
         [
           {
             "question_nr": "1",
-            "intrebare": "Pentru nivelul 2: stii java?",
+            "intrebare": ".  Ce se va întâmpla la execuția următoarei secvențe? \nfloat a=0;\nint b=0, test=0;\ntry {\n a=1/a; test ++;\n b=1/b; test ++;\n}\ncatch(Exception e) { test ++; }\nfinally { test ++; }\nSystem.out.println(\"test=\" + test + \" a=\" + a + \" b=\" + b);",
+            "raspunsuri": [{
+              "a": "Nu se va afișa nimic, prograul se va opri cu excepție",
+              "b": "Se va afișa: test=3 a=Infinity b=0",
+              "c": "Se va afișa: test=4 a=0 b=0"
+            }],
+            "raspuns corect": "Se va afișa: test=3 a=Infinity b=0"
+          },
+          {
+            "question_nr": "2",
+            "intrebare": ". Ce semnificație are cuvântul cheie super folosit ca metodă?",
+            "raspunsuri": [{
+              "a": "Apelează constructorul corespunzător ca număr de argumente al clasei;",
+              "b": "Apelează constructorul corespunzător ca număr de argumente al superclasei;",
+              "c": "Face referire la variabilele de instanță ale superclasei;"
+            }],
+            "raspuns corect": "Apelează constructorul corespunzător ca număr de argumente al superclasei;"
+          },
+          {
+            "question_nr": "3",
+            "intrebare": ". Ce va afișa la execuție aplicația CtorDemo? \nclass A{\n int a=1;\n A() { a=2; }\n}\nclass B extends A {\n int b=3;\n B() { b=a; }\n}\npublic class CtorDemo {\n public static void main(String args[]) {\n B bobj = new B();\n System.out.println(bobj.b);\n } }",
+            "raspunsuri": [{
+              "a": "1",
+              "b": "2",
+              "c": "3"
+            }],
+            "raspuns corect": "2"
+          },
+          {
+            "question_nr": "4",
+            "intrebare": ". Care dintre următoarele variante nu este corectă?",
+            "raspunsuri": [{
+              "a": "Writer a = new Writer(\"file.txt\");",
+              "b": "Writer b = new PrintWriter(new FileWriter(\"file.txt\"));",
+              "c": "Writer c = new FileWriter(\"file.txt\");"
+            }],
+            "raspuns corect": "Writer a = new Writer(\"file.txt\");"
+          },
+          {
+            "question_nr": "5",
+            "intrebare": ". Ce puteți spune despre subprogramul alăturat? \ndouble x = 0;\nif (Double.isInfinite(2 / x))\n System.out.println(\"infinit\");\nelse\nSystem.out.println(\"2 / 0\");",
+            "raspunsuri": [{
+              "a": "Eroare la compilare datorită împărțirii la zero",
+              "b": "Eroare la execuție datorită împărțirii la zero (se aruncă o excepție ArithmeticException)",
+              "c": "Programul este corect și va afișa: infinit"
+            }],
+            "raspuns corect": "Programul este corect și va afișa: infinit"
+          }
+        ],
+        [
+          {
+            "question_nr": "1",
+            "intrebare": ". Care vor fi valorile variabilelor a, b și c după execuția secvenței de mai jos? \nint a = 0, b = 1, c = (++a >= b-- ? a ++ : ++b);",
             "raspunsuri": [{
               "a": "kind of",
               "b": "clar da",
@@ -67,43 +119,43 @@
           },
           {
             "question_nr": "2",
-            "intrebare": "",
+            "intrebare": ". Ce se va întâmpla la execuția secvenței alăturate? \nint test = 0, infinit = 0;\ntry {\n infinit = 1/0;\n test ++;\n}\ncatch(Exception e) { test ++; }\nfinally { test ++; }\nSystem.out.println(\"test=\" + test + \" infinit=\" + infinit);",
             "raspunsuri": [{
-              "a": "",
-              "b": "",
-              "c": ""
+              "a": "Se va afișa: test=2 infinit=NaN",
+              "b": "Se va afișa: test=2 infinit=0",
+              "c": "Se va afișa: test=1 infinit=0"
             }],
-            "raspuns corect": "a"
+            "raspuns corect": "Se va afișa: test=2 infinit=0"
           },
           {
             "question_nr": "3",
-            "intrebare": "",
+            "intrebare": ". Ce se va afișa la execuția următoarei secvențe de cod: \nRuntimeException a = new RuntimeException();\nSystem.out.println(a.getClass().getSuperclass().getSuperclass());",
             "raspunsuri": [{
-              "a": "",
-              "b": "",
-              "c": ""
+              "a": "class java.lang.Exception",
+              "b": "class java.lang.Error",
+              "c": "class java.lang.Throwable"
             }],
-            "raspuns corect": "a"
+            "raspuns corect": "class java.lang.Throwable"
           },
           {
             "question_nr": "4",
-            "intrebare": "",
+            "intrebare": ". Fie codul de mai jos. Care este rezultatul execuției lui? \n1: File f1 = new File(\"numeDirector\");\n2: File f2 = new File(f1, \"numeFisier\");",
             "raspunsuri": [{
-              "a": "",
-              "b": "",
-              "c": ""
+              "a": "programul este corect și se creează în directorul curent doar fișierul cu numele numeFisier",
+              "b": "eroare la compilare la linia 2, deoarece avem un apel recursiv nepermis",
+              "c": "programul este corect, dar nu se creează nici un director și nici un fișier"
             }],
-            "raspuns corect": "a"
+            "raspuns corect": "programul este corect, dar nu se creează nici un director și nici un fișier"
           },
           {
             "question_nr": "5",
-            "intrebare": "",
+            "intrebare": ". Care este superclasa tutor claselor ce descriu excepții sau erori în Java?",
             "raspunsuri": [{
-              "a": "",
-              "b": "",
-              "c": ""
+              "a": "Throwable",
+              "b": "Exception",
+              "c": "Error"
             }],
-            "raspuns corect": "a"
+            "raspuns corect": "Throwable"
           }
         ]
       ]
@@ -112,37 +164,37 @@
       "probleme": [
         {
           "problem_number": "1",
-          "titlu": "bineeee",
-          "intrebare": "aiaiaia",
-          "rezolvare": "rezolv",
+          "titlu": "Collections",
+          "intrebare": "O aplicaţie de gestiune a studenţilor unei universităţi conţine clasa Student şi câte o structură de date List<Student> studenti; cu studenţii fiecărei facultăţi. Care din invocările a)Arrays.sort(studenti) sau b) Collections.sort(studenti) este corectă și în ce condiții?",
+          "rezolvare": "Clasa Student trebuie să implementeze interfața Comparable și metoda compareTo()",
           "raspuns": ""
         },
         {
           "problem_number": "2",
-          "titlu": "abracadabra",
-          "intrebare": "dada",
-          "rezolvare": "dada",
+          "titlu": "Matrix",
+          "intrebare": "În cadrul unei aplicații doriți să utilizați o clasă pentru lucru cu matrici rare cu numele org.math.cool.SparseMatrix, clasă aflată în arhiva coolmath.jar. Care sunt pașii pe care trebuie să îi faceți pentru a realiza acest lucru?",
+          "rezolvare": "Se adaugă arhiva în classpath. Pot fi menționați și pașii specifici IDE-ului pe care il folosiți.",
           "raspuns": ""
         },
         {
           "problem_number": "3",
-          "titlu": "abt",
-          "intrebare": "re",
-          "rezolvare": "zzz",
+          "titlu": "Web",
+          "intrebare": "O aplicație se conectează la un serviciu Web de unde citește valorile cursurilor valutare la o anumită dată. Declarați și instanțiați, folosind tipuri generice, o colecție care să poată memora informațiile citite de la respectivul serviciu Web.",
+          "rezolvare": "HashMap<String, Double> map = new HashMap<String, Double>();",
           "raspuns": ""
         },
         {
           "problem_number": "4",
-          "titlu": "nope",
-          "intrebare": "nu",
-          "rezolvare": "nu",
+          "titlu": "Contains",
+          "intrebare": "Scrieți metoda contains(Point p, Point p1, Point p2) care să testeze dacă un punct p se găsește pe dreapta determinată de punctele p1 și p.",
+          "rezolvare": " return p.getY() - p1.getY() == \n ((p.getX() - p1.getX()) * (p2.getY() - p1.getY())) / (p2.getX() - p1.getX()); \n}",
           "raspuns": ""
         },
         {
           "problem_number": "5",
-          "titlu": "yas",
-          "intrebare": "da",
-          "rezolvare": "da",
+          "titlu": "Corect(?)",
+          "intrebare": "Este corectă secvența de mai jos? Dacă da, care va fi rezultatul afișat? Motivați răspunsul. \nString s1 = Integer.parseInt(1);\n String s2 = Integer.parseInt(2);\nSystem.out.println((s1+s2) == new String(\"12\"));",
+          "rezolvare": "Secvența este greșită și va produce eroare la compilare deoarece metoda parseInt() trebuie să \nprimească un String și returnează un int - invers faț",
           "raspuns": ""
         }
       ]

@@ -75,9 +75,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="10dp"
+            android:layout_marginTop="50px"
             android:layout_marginBottom="20dp"
             android:text="This is the question for this grila and it is saying this much yeyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy"
-            android:textSize="20sp" />
+            android:textSize="17sp" />
         <RadioGroup
             android:id="@+id/radioGroupGrile"
             android:layout_width="match_parent"
@@ -86,7 +87,7 @@
                 android:layout_marginBottom="10dp"
                 android:id="@+id/answerA"
                 android:text="ceva aici"
-                android:textSize="23sp"
+                android:textSize="18sp"
                 android:background="@drawable/btn_bkg"
                 android:layout_width="match_parent"
                 android:padding="10dp"
@@ -95,7 +96,7 @@
                 android:layout_marginBottom="10dp"
                 android:id="@+id/answerB"
                 android:text="ceva aici"
-                android:textSize="23sp"
+                android:textSize="18sp"
                 android:background="@drawable/btn_bkg"
                 android:layout_width="match_parent"
                 android:padding="10dp"
@@ -104,7 +105,7 @@
                 android:layout_marginBottom="10dp"
                 android:id="@+id/answerC"
                 android:text="ceva aici"
-                android:textSize="23sp"
+                android:textSize="18sp"
                 android:background="@drawable/btn_bkg"
                 android:layout_width="match_parent"
                 android:padding="10dp"
