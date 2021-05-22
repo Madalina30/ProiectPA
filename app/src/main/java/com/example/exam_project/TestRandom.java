@@ -188,7 +188,6 @@ public class TestRandom extends AppCompatActivity {
                         e.printStackTrace();
                     }
                 } else {
-                    // TODO: SE PUNE LA STATUS
                     double punctaj = (double) countCorrectAnswers[0] / 5 * 100;
 
                     int points = countCorrectAnswers[0] * 20;
@@ -196,38 +195,28 @@ public class TestRandom extends AppCompatActivity {
                     SharedPreferences.Editor editor = pref1.edit();
                     editor.putInt("pointsWonOrLost", points).apply();
                     points += pref1.getInt("points",0);
-//                    Log.d("aaaa", String.valueOf(punctaj));
-
-                    System.out.println("NOPE NU NU NU " + punctaj);
-                    //adaug in db (rest)
 
                     String url = "https://examnet.000webhostapp.com/status.php";
                     StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
                             new Response.Listener<String>() {
                                 @Override
                                 public void onResponse(String response) {
-//                                        Toast.makeText(Signup.this, response.trim(), Toast.LENGTH_LONG).show();
                                     System.out.println(response.trim());
-
                                 }
                             },
                             new Response.ErrorListener() {
                                 @Override
                                 public void onErrorResponse(VolleyError error) {
-//                                        Toast.makeText(Signup.this, error.toString(), Toast.LENGTH_SHORT).show();
-
                                 }
                             }
                     ) {
                         SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", 0); // 0 - for private mode
 
-
-
                         @Nullable
                         @Override
                         protected Map<String, String> getParams() {
                             Map<String, String> params = new HashMap<>();
-                            @SuppressLint("SimpleDateFormat") SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd 'at' HH:mm:ss z");
+                            @SuppressLint("SimpleDateFormat") SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd 'at' HH:mm:ss");
                             Date date = new Date(System.currentTimeMillis());
                             System.out.println(formatter.format(date));
                             params.put("username", pref.getString("username", ""));
@@ -241,14 +230,6 @@ public class TestRandom extends AppCompatActivity {
 
                     RequestQueue requestQueue = Volley.newRequestQueue(TestRandom.this);
                     requestQueue.add(stringRequest);
-//                        boolean success = databaseHelper.addUser(new_user);
-//                        if (success) {
-//                            Log.d("aaaa", "user added");
-//                        } else {
-//                            Log.d("aaaa", "user NOT added");
-//
-//                        }
-                    // pana aici request
 
                     url = "https://examnet.000webhostapp.com/pointsAdd.php";
                     int finalPoints = points;
@@ -271,8 +252,6 @@ public class TestRandom extends AppCompatActivity {
                     ) {
                         SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", 0); // 0 - for private mode
 
-
-
                         @Nullable
                         @Override
                         protected Map<String, String> getParams() {
@@ -291,8 +270,6 @@ public class TestRandom extends AppCompatActivity {
                     SharedPreferences.Editor editor2 = pref.edit();
                     editor2.putInt("points", points);
                     editor2.apply();
-
-
 
 
                     // todo: -> asta o sa se puna in statistici : punctajul (punctaj), data si categoria: tabel in bd

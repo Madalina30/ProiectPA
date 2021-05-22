@@ -234,7 +234,7 @@ public class GrileMain extends AppCompatActivity {
                                     @Override
                                     protected Map<String, String> getParams() {
                                         Map<String, String> params = new HashMap<>();
-                                        @SuppressLint("SimpleDateFormat") SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd 'at' HH:mm:ss z");
+                                        @SuppressLint("SimpleDateFormat") SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd 'at' HH:mm:ss");
                                         Date date = new Date(System.currentTimeMillis());
                                         System.out.println(formatter.format(date));
                                         params.put("username", pref.getString("username", ""));
