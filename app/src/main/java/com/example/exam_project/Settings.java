@@ -86,6 +86,7 @@ public class Settings extends AppCompatActivity {
                                         Map<String, String> params = new HashMap<>();
                                         params.put("username", pref.getString("username", ""));
                                         params.put("points", String.valueOf(points));
+                                        params.put("reset","reset");
                                         //category -> test, data, punctaj -> status
                                         return params;
                                     }

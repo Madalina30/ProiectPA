@@ -258,6 +258,7 @@ public class TestRandom extends AppCompatActivity {
                             Map<String, String> params = new HashMap<>();
                             params.put("username", pref.getString("username", ""));
                             params.put("points", String.valueOf(finalPoints));
+                            params.put("reset","no");
                             //category -> test, data, punctaj -> status
                             return params;
                         }
