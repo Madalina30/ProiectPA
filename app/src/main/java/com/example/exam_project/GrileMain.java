@@ -234,7 +234,7 @@ public class GrileMain extends AppCompatActivity {
                                     @Override
                                     protected Map<String, String> getParams() {
                                         Map<String, String> params = new HashMap<>();
-                                        @SuppressLint("SimpleDateFormat") SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd 'at' HH:mm:ss");
+                                        @SuppressLint("SimpleDateFormat") SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
                                         Date date = new Date(System.currentTimeMillis());
                                         System.out.println(formatter.format(date));
                                         params.put("username", pref.getString("username", ""));
@@ -277,7 +277,6 @@ public class GrileMain extends AppCompatActivity {
                                         Map<String, String> params = new HashMap<>();
                                         params.put("username", pref.getString("username", ""));
                                         params.put("points", String.valueOf(finalPoints));
-                                        params.put("reset","no");
 
                                         //category -> test, data, punctaj -> status
                                         return params;

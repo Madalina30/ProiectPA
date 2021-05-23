@@ -63,7 +63,7 @@ public class Settings extends AppCompatActivity {
                                 SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", 0); // 0 - for private mode
                                 int points = 0;
 
-                                String url = "https://examnet.000webhostapp.com/pointsAdd.php";
+                                String url = "https://examnet.000webhostapp.com/reset.php";
                                 StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
                                         new Response.Listener<String>() {
                                             @Override
@@ -86,7 +86,6 @@ public class Settings extends AppCompatActivity {
                                         Map<String, String> params = new HashMap<>();
                                         params.put("username", pref.getString("username", ""));
                                         params.put("points", String.valueOf(points));
-                                        params.put("reset","reset");
                                         //category -> test, data, punctaj -> status
                                         return params;
                                     }
