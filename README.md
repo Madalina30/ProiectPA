@@ -1,4 +1,4 @@
-# ProiectPA
+# ProiectPA - Cristea Liviu Andrei & Bănică Mădălina-Elena
 # FrontEnd + Backend
 - **splashscreen**: this is a simple screen with the logo, a short description and copyright that makes you wait 2 seconds until you reach the login page (if you are not logged in) or the main menu page (if you are logged in) - data saved in sharedPreferences
 ```
