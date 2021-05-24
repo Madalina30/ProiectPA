@@ -1,0 +1,32 @@
+<?php
+	$host = "eu-cdbr-west-01.cleardb.com";
+	$user = "bf9422ed9ab87d";
+	$password = "71d97a72";
+	$database = "heroku_9eed7796d02a0d0";
+
+
+   // echo $database;
+
+   $conn = mysqli_connect($host,$user,$password,$database);
+   if(!conn){
+      echo "Problems";
+      die("Connection failed: " . mysqli_connect_error());
+   }
+   else{
+      echo "All good";
+   }
+
+   $username = $_POST["username"];
+   $category = $_POST["category"];
+   $date = $_POST["date"];
+   $points = $_POST["points"];
+
+   $sql = "INSERT INTO status(username,category,date,procent) VALUES('$username','$category','$date','$points')";
+
+   if(mysqli_query($conn,$sql)){
+      echo "Succes!";
+   }
+   else{
+      echo "Failed!";
+   }
+?>
