@@ -5,6 +5,8 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.media.Image;
@@ -163,8 +165,22 @@ public class GrileMain extends AppCompatActivity {
                 backToGrile.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        setContentView(R.layout.activity_grile_main);
-                        setFunctionality();
+                        new AlertDialog.Builder(GrileMain.this)
+                                .setTitle("Back to levels")
+                                .setMessage("Are you sure you want to go back? You will lose progress!")
+                                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        Toast.makeText(GrileMain.this, "Too bad...", Toast.LENGTH_SHORT).show();
+                                        setContentView(R.layout.activity_grile_main);
+                                        setFunctionality();
+                                    }
+                                })
+
+                                // A null listener allows the button to dismiss the dialog and take no further action.
+                                .setNegativeButton(android.R.string.no, null)
+                                .setIcon(android.R.drawable.ic_dialog_alert)
+                                .show();
+
                     }
                 });
                 final int[] countCorrectAnswers = {0};

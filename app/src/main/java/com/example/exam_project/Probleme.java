@@ -4,6 +4,7 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -28,6 +29,7 @@ public class Probleme extends AppCompatActivity {
     private ScrollView problemeScroll;
     private LinearLayout layoutProbleme;
     private RelativeLayout problemSample;
+    private TextView points;
 
     public ScrollView getProblemeScroll() {
         return problemeScroll;
@@ -45,6 +47,8 @@ public class Probleme extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setFunctionality();
+        SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", 0); // 0 - for private mode
+        points.setText(String.valueOf(pref.getInt("points", 0)));
     }
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
@@ -106,6 +110,7 @@ public class Probleme extends AppCompatActivity {
         backToMainMenu = findViewById(R.id.backToMainMenu);
         problemeScroll = findViewById(R.id.grileScroll);
         layoutProbleme = findViewById(R.id.layoutProbleme);
+        points = findViewById(R.id.points);
 
         backToMainMenu.setOnClickListener(new View.OnClickListener() {
             @Override

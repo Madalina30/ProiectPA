@@ -49,6 +49,7 @@ import java.util.Map;
 
 public class TestRandom extends AppCompatActivity {
     private ImageView backToMainMenu;
+    private TextView points;
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
     @Override
@@ -58,12 +59,15 @@ public class TestRandom extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setFunctionality();
-        // TODO: points
+        SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", 0); // 0 - for private mode
+        points.setText(String.valueOf(pref.getInt("points", 0)));
+
     }
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
     public void setFunctionality() {
 
+        points = findViewById(R.id.points);
         JSONParser jsonParser = new JSONParser();
         JSONArray grile = jsonParser.parseJSON(TestRandom.this);
         for (int i = 0; i < grile.length(); i++) {
